@@ -1,0 +1,221 @@
+@use "sass:map";
+@import "../css/main.css";
+@import "../css/normalize.css";
+@import "../css/fonts.css";
+
+$background-color: rgb(201, 198, 192);
+$textColor: rgb(21, 51, 65);
+$navbarBackgroundColor: rgb(34, 51, 44);
+$headerElementsPadding: 20px;
+$logoWidth: 107px;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+@mixin breakpoint-from($size) {
+  @media (min-width: map.get($grid-breakpoints, $size)) {
+    @content;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style-type: none;
+  }
+}
+button {
+  border: 0;
+  background-color: transparent;
+}
+a {
+  text-decoration: none;
+  &:hover {
+    opacity: 0.3;
+    @media (hover: none) {
+      opacity: 1;
+    }
+  }
+}
+
+:root {
+  --navbar-horizontal-position: end;
+  --navbar-vertical-position: center;
+  --navbar-position: fixed;
+  --display-header-text: none;
+  --navbar-display-icon: block;
+  --navbar-width: 33%;
+  --navbar-grid-column: 1;
+  --navbar-grid-row: inherit;
+  --navbar-template-rows: repeat(3, 50px);
+  --navbar-template-columns: auto;
+}
+
+@include breakpoint-from(md) {
+  :root {
+    --navbar-position: static;
+    --display-header-text: block;
+    --navbar-display-icon: none;
+    --navbar-width: fit-content;
+    --navbar-height: auto;
+    --navbar-grid-column: inherit;
+    --navbar-grid-row: 1;
+    --navbar-template-rows: auto;
+    --navbar-template-columns: repeat(3, auto);
+  }
+}
+
+@media (pointer: coarse) {
+  :root {
+    --navbar-horizontal-position: end;
+    --navbar-vertical-position: center;
+    --navbar-position: fixed;
+    --navbar-display-icon: block;
+    --navbar-width: 33%;
+    --navbar-grid-column: 1;
+    --navbar-grid-row: inherit;
+    --navbar-template-rows: repeat(3, 50px);
+    --navbar-template-columns: auto;
+  }
+}
+
+body {
+  background-color: $background-color;
+  font-family: "Louis_George_Cafe";
+}
+
+.drop-shadow {
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+.headMediumCaption {
+  font-variant: small-caps;
+  font-size: 22pt;
+  line-height: 30pt;
+  color: white;
+  letter-spacing: 1.5pt;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  padding: $headerElementsPadding;
+  .headerLogoWrapper {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    .mainLogoLink {
+      width: fit-content;
+      height: min-content;
+      &:hover {
+        opacity: 1;
+      }
+      img {
+        width: $logoWidth;
+      }
+    }
+    h1 {
+      display: var(--display-header-text);
+      letter-spacing: 5px;
+      margin-left: 30px;
+      font-size: 18pt;
+      white-space: nowrap;
+      span {
+        font-family: Louis_George_Cafe_Light;
+        letter-spacing: 3px;
+        font-style: italic;
+      }
+    }
+  }
+  .CenterHeaderNav {
+    display: flex;
+    grid-column: 2;
+    justify-content: var(--navbar-horizontal-position);
+    align-items: var(--navbar-vertical-position);
+    .headerNavContainer {
+      display: grid;
+      width: fit-content;
+      height: fit-content;
+      overflow: hidden;
+      .burgermenu-icon {
+        height: fit-content;
+        grid-column: 1;
+        display: var(--navbar-display-icon);
+        font-size: 55pt;
+        cursor: pointer;
+        color: white;
+      }
+    }
+  }
+
+  nav {
+    position: var(--navbar-position);
+    top: 0;
+    right: -33%;
+    width: var(--navbar-width);
+    height: 100%;
+    transition: all 0.4s ease-out;
+    ul {
+      display: grid;
+      column-gap: 10px;
+      grid-template-rows: var(--navbar-template-rows);
+      grid-template-columns: var(--navbar-template-columns);
+    }
+    .close {
+      display: none;
+    }
+    a {
+      display: var(--display-header-text);
+      font-size: 12pt;
+    }
+    &.open {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      right: 0;
+      background-color: $navbarBackgroundColor;
+      .close {
+        height: 35px;
+        padding: 5px 5px 0 0;
+        display: block;
+        width: 20%;
+
+        color: white;
+        cursor: pointer;
+      }
+      ul {
+        width: 100%;
+        li {
+          grid-column: var(--navbar-grid-column);
+          grid-row: var(--navbar-grid-row);
+
+          &:not(:last-child) {
+            border-bottom: 1px solid darken($navbarBackgroundColor, 5%);
+          }
+        }
+        a {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+a {
+  color: $textColor;
+}
