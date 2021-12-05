@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import downloadUrl from "../img/logos/Logo.svg";
 
 class Pageheader extends React.Component {
   render() {
@@ -35,7 +36,7 @@ class Header extends React.Component {
         <header class="header-grid">
           <div class="headerLogoWrapper">
             <a class="mainLogoLink" href="#home">
-              <img class="drop-shadow" src="/img/Logo.svg" />
+              <img class="drop-shadow" src={downloadUrl} />
             </a>
             <h1>
               Jakob Nonnenmacher <br /> <span>- Web Entwicklung</span>
