@@ -41,9 +41,15 @@ main {
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
 }
 
 /* Grouping content
@@ -58,6 +64,15 @@ hr {
   box-sizing: content-box; /* 1 */
   height: 0; /* 1 */
   overflow: visible; /* 2 */
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
 }
 
 /**

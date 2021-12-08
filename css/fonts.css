@@ -47,11 +47,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-BurgerMenu:before {
+  content: "\e900";
+}
 .icon-home3:before {
   content: "\e902";
-}
-.icon-image:before {
-  content: "\e90d";
 }
 .icon-coin-euro:before {
   content: "\e93c";
@@ -95,12 +95,6 @@
 .icon-equalizer:before {
   content: "\e992";
 }
-.icon-menu:before {
-  content: "\e9bd";
-}
-.icon-menu3:before {
-  content: "\e9bf";
-}
 .icon-checkmark:before {
   content: "\ea10";
 }
@@ -112,4 +106,7 @@
 }
 .icon-mail4:before {
   content: "\ea86";
+}
+.icon-image:before {
+  content: "\e90d";
 }

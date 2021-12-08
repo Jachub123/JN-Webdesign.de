@@ -4,12 +4,13 @@
 @import "../css/fonts.css";
 
 $background-color: rgb(201, 198, 192);
-$textColor: rgb(21, 51, 65);
-$navbarBackgroundColor: rgb(34, 51, 44);
-$headerElementsPadding: 20px;
-$logoWidth: 107px;
+$linkColor: #c1c0bc;
+$navbarBackgroundColor: #87857e;
+$padding: 40px;
+$logoWidth: 320px;
+$position-left-vertical-lign-of-logo: 87px;
 
-$grid-breakpoints: (
+$screensize-list: (
   xs: 0,
   sm: 576px,
   md: 768px,
@@ -18,19 +19,30 @@ $grid-breakpoints: (
   xxl: 1400px,
 );
 
-@mixin breakpoint-from($size) {
-  @media (min-width: map.get($grid-breakpoints, $size)) {
+@mixin rule-for-screensize($rule, $size) {
+  #{$rule}: map.get($screensize-list, $size);
+}
+
+@mixin layout-for-screensize($size) {
+  @media (min-width: map.get($screensize-list, $size)) {
     @content;
   }
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-  li {
-    list-style-type: none;
+@mixin padding($position: all, $value: $padding20) {
+  @if index($position, "top") {
+    padding: $value + px $padding 0 $padding;
+  } @else if index($position, "right") {
+    padding: $padding $value + px 0 $padding;
+  } @else if index($position, "bottom") {
+    padding: $padding $padding $value + px $padding;
+  } @else if index($position, "left") {
+    padding: $padding $padding 0 $value + px;
+  } @else {
+    padding: $padding20 $padding20 0 $padding20;
   }
 }
+
 button {
   border: 0;
   background-color: transparent;
@@ -47,19 +59,34 @@ a {
 
 :root {
   --navbar-horizontal-position: end;
-  --navbar-vertical-position: center;
+  --navbar-vertical-position: start;
   --navbar-position: fixed;
   --display-header-text: none;
+  --header-font-size: 14pt;
+  --header-font-size-small: 10pt;
+  --header-line-height: 35pt;
+  --header-line-height-small: 25pt;
   --navbar-display-icon: block;
-  --navbar-width: 33%;
+  --navbar-width: 45%;
   --navbar-grid-column: 1;
   --navbar-grid-row: inherit;
   --navbar-template-rows: repeat(3, 50px);
   --navbar-template-columns: auto;
+  --logo-width: 150px;
 }
 
-@include breakpoint-from(md) {
+@include layout-for-screensize(md) {
   :root {
+    --header-font-size: 22pt;
+    --header-font-size-small: 15pt;
+    --header-line-height: 50pt;
+    --header-line-height-small: 33pt;
+    --logo-width: 200px;
+  }
+}
+@include layout-for-screensize(md) {
+  :root {
+    --navbar-vertical-position: start;
     --navbar-position: static;
     --display-header-text: block;
     --navbar-display-icon: none;
@@ -75,7 +102,7 @@ a {
 @media (pointer: coarse) {
   :root {
     --navbar-horizontal-position: end;
-    --navbar-vertical-position: center;
+    --navbar-vertical-position: start;
     --navbar-position: fixed;
     --navbar-display-icon: block;
     --navbar-width: 33%;
@@ -94,24 +121,58 @@ body {
 .drop-shadow {
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.3));
 }
+.pageheader {
+  background-image: url(../img/test2_blur.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left;
+  height: 100vh;
+  .overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+  }
+  .pageHeaderWrapper {
+    @include rule-for-screensize(max-width, xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $padding;
+    .headMediumCaption {
+      font-variant: small-caps;
+      font-size: var(--header-font-size);
+      line-height: var(--header-line-height);
+      color: white;
+      letter-spacing: 1.5pt;
+    }
 
-.headMediumCaption {
-  font-variant: small-caps;
-  font-size: 22pt;
-  line-height: 30pt;
-  color: white;
-  letter-spacing: 1.5pt;
+    .headSmallCaption {
+      font-size: var(--header-font-size-small);
+      line-height: var(--header-line-height-small);
+      color: white;
+      letter-spacing: 1pt;
+      font-weight: 500;
+    }
+  }
+}
+
+header {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
 }
 
 .header-grid {
   display: grid;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: auto 1fr;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  align-items: center;
-  padding: $headerElementsPadding;
+  align-items: var(--navbar-vertical-position);
+  @include padding(left, 0);
   .headerLogoWrapper {
+    padding-left: $padding;
     grid-column: 1;
     display: flex;
     align-items: center;
@@ -122,33 +183,25 @@ body {
         opacity: 1;
       }
       img {
-        width: $logoWidth;
+        width: var(--logo-width);
       }
     }
-    h1 {
-      display: var(--display-header-text);
-      letter-spacing: 5px;
-      margin-left: 30px;
-      font-size: 18pt;
-      white-space: nowrap;
-      span {
-        font-family: Louis_George_Cafe_Light;
-        letter-spacing: 3px;
-        font-style: italic;
-      }
+    span {
+      font-family: Louis_George_Cafe_Light;
+      letter-spacing: 3px;
+      font-style: italic;
     }
   }
   .CenterHeaderNav {
     display: flex;
     grid-column: 2;
     justify-content: var(--navbar-horizontal-position);
-    align-items: var(--navbar-vertical-position);
     .headerNavContainer {
       display: grid;
       width: fit-content;
       height: fit-content;
       overflow: hidden;
-      .burgermenu-icon {
+      .icon-BurgerMenu {
         height: fit-content;
         grid-column: 1;
         display: var(--navbar-display-icon);
@@ -177,7 +230,7 @@ body {
     }
     a {
       display: var(--display-header-text);
-      font-size: 12pt;
+      font-size: 16pt;
     }
     &.open {
       display: flex;
@@ -217,5 +270,5 @@ body {
 }
 
 a {
-  color: $textColor;
+  color: $linkColor;
 }
