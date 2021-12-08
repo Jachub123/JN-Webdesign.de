@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import downloadUrl from "../img/logos/Logo3.0.svg";
 
 function GetMeasurments(props) {
-  return props.elHeight, props.elWidth;
+  return props.elHeight, props.elWidth; 
 }
-
-class Pageheader extends React.Component {
+ 
+class Pageheader extends React.Component { 
   render() {
     const thisElHeight = (
       <GetMeasurments elHeight={this.props.addPaddingTop}></GetMeasurments>
     );
-    const thisElWidth = (
+    const thisElWidth = ( 
       <GetMeasurments elWidth={this.props.distanceLeft}></GetMeasurments>
     );
 

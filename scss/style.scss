@@ -9,6 +9,7 @@ $navbarBackgroundColor: #87857e;
 $padding: 40px;
 $logoWidth: 320px;
 $position-left-vertical-lign-of-logo: 87px;
+$navbarWidth: 250px;
 
 $screensize-list: (
   xs: 0,
@@ -67,7 +68,7 @@ a {
   --header-line-height: 35pt;
   --header-line-height-small: 25pt;
   --navbar-display-icon: block;
-  --navbar-width: 45%;
+  --navbar-width: #{$navbarWidth};
   --navbar-grid-column: 1;
   --navbar-grid-row: inherit;
   --navbar-template-rows: repeat(3, 50px);
@@ -105,7 +106,7 @@ a {
     --navbar-vertical-position: start;
     --navbar-position: fixed;
     --navbar-display-icon: block;
-    --navbar-width: 33%;
+    --navbar-width: #{$navbarWidth};
     --navbar-grid-column: 1;
     --navbar-grid-row: inherit;
     --navbar-template-rows: repeat(3, 50px);
@@ -126,7 +127,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left;
-  height: 100vh;
+  min-height: 100vh;
+  position: relative;
   .overlay {
     position: absolute;
     height: 100%;
@@ -215,7 +217,7 @@ header {
   nav {
     position: var(--navbar-position);
     top: 0;
-    right: -33%;
+    right: -$navbarWidth;
     width: var(--navbar-width);
     height: 100%;
     transition: all 0.4s ease-out;
