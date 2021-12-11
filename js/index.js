@@ -2,40 +2,32 @@ import React from "react";
 import ReactDOM from "react-dom";
 import downloadUrl from "../img/logos/Logo3.0.svg";
 
-function GetMeasurments(props) {
-  return props.elHeight, props.elWidth; 
-}
- 
-class Pageheader extends React.Component { 
+class Pageheader extends React.Component {
   render() {
-    const thisElHeight = (
-      <GetMeasurments elHeight={this.props.addPaddingTop}></GetMeasurments>
-    );
-    const thisElWidth = ( 
-      <GetMeasurments elWidth={this.props.distanceLeft}></GetMeasurments>
-    );
-
     return (
       <div
-        class="pageHeaderWrapper"
+        className="pageHeaderWrapper"
         style={{
-          paddingTop: thisElHeight.props.elHeight,
-          paddingLeft: thisElWidth.props.elWidth,
+          paddingTop: this.props.addPaddingTop,
+          paddingLeft: this.props.addPaddingLeft,
         }}
       >
-        <h2 class="drop-shadow headMediumCaption">Sowie Du, sollte auch</h2>
-        <h2 class="drop-shadow headMediumCaption">
+        <h2 className="drop-shadow headMediumCaption">Sowie Du, sollte auch</h2>
+        <h2 className="drop-shadow headMediumCaption">
           Deine Website ein Unikat sein
         </h2>
-        <h2 class="drop-shadow headMediumCaption">Und kein Baukaustenmodell</h2>
-        <h3 class="drop-shadow headSmallCaption">
-          <span class="icon-checkmark2"></span> Responsiv
+        <h2 className="drop-shadow headMediumCaption">
+          Und kein Baukaustenmodell
+        </h2>
+        <h3 className="drop-shadow headSmallCaption">
+          <span className="icon-checkmark2"></span> Responsiv
         </h3>
-        <h3 class="drop-shadow headSmallCaption">
-          <span class="icon-checkmark2"></span> SEO - Suchmaschinen optimiert
+        <h3 className="drop-shadow headSmallCaption">
+          <span className="icon-checkmark2"></span> SEO - Suchmaschinen
+          optimiert
         </h3>
-        <h3 class="drop-shadow headSmallCaption">
-          <span class="icon-checkmark2"></span> Individuell nach deinen
+        <h3 className="drop-shadow headSmallCaption">
+          <span className="icon-checkmark2"></span> Individuell nach deinen
           Vorstellungen
         </h3>
       </div>
@@ -47,53 +39,109 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      class: null,
+      cssClass: null,
       headerHeight: 0,
       logoWidth: 0,
-      logoLeftPadding: 0,
-      spacingLeft: 0,
+      breakpoints: Array(0, 576, 768, 992, 1200, 1400),
+      lowBreakpoint: null,
+      highBreakpoint: null,
     };
 
-    this.divElement = React.createRef();
+    this.header = React.createRef();
     this.logo = React.createRef();
   }
 
   hover() {
-    this.state.class
-      ? this.setState({ class: null })
-      : this.setState({ class: "open" });
+    this.state.cssClass
+      ? this.setState({ cssClass: null })
+      : this.setState({ cssClass: "open" });
   }
 
-  componentDidMount() {
-    const height = this.divElement.current.clientHeight + 50;
+  resize = (e) => {
+    const headerHeight = this.header.current.clientHeight;
+    const logoHeight = this.logo.current.clientHeight;
     const logoWidth = this.logo.current.clientWidth;
-    this.setState({ headerHeight: height });
+    const padding = headerHeight - logoHeight;
+
+    this.setState({ headerHeight: headerHeight + padding });
+
     if (window.innerWidth > 576) {
-      this.setState({ spacingLeft: logoWidth });
+      this.setState({ logoWidth: logoWidth });
     } else {
-      this.setState({ spacingLeft: "" });
+      this.setState({ logoWidth: "" });
     }
+  };
+  resizeOnChange = (e) => {
+    const headerHeight = this.header.current.clientHeight;
+    const logoHeight = this.logo.current.clientHeight;
+    const logoWidth = this.logo.current.clientWidth;
+    const padding = headerHeight - logoHeight;
+    if (
+      (this.state.lowBreakpoint &&
+        window.innerWidth < this.state.lowBreakpoint) ||
+      (this.state.highBreakpoint &&
+        window.innerWidth >= this.state.highBreakpoint)
+    ) {
+      this.setState({ headerHeight: headerHeight + padding });
+
+      if (window.innerWidth > 576) {
+        this.setState({ logoWidth: logoWidth });
+      } else {
+        this.setState({ logoWidth: "" });
+      }
+    }
+  };
+
+  componentDidMount() {
+    const breakpoints = this.state.breakpoints.slice();
+    const smallerBreakpoints = Array();
+
+    const screensize = window.innerWidth;
+    breakpoints.map((breakpoint, index) => {
+      if (screensize > breakpoint) {
+        smallerBreakpoints.push(index);
+      }
+    });
+
+    this.setState({
+      lowBreakpoint:
+        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1]],
+      highBreakpoint:
+        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
+    });
+
+    this.resize();
   }
 
   render() {
-    console.log(window.innerWidth);
-    const dropdown = this.state.class;
+    const openSideBar = this.state.cssClass;
+    console.log(this.state.lowBreakpoint);
+    console.log(this.state.highBreakpoint);
+
+    window.addEventListener("resize", this.resizeOnChange);
+    console.log("layoutchange to: ");
+    console.log(this.state.lowBreakpoint + "-" + this.state.highBreakpoint);
+
     return (
-      <div class="main">
+      <div className="main">
         <header>
-          <div class="header-grid" ref={this.divElement}>
-            <div class="headerLogoWrapper" ref={this.logo}>
-              <a class="mainLogoLink" href="#home">
-                <img class="drop-shadow" src={downloadUrl} />
+          <div id="headergrid" className="header-grid" ref={this.header}>
+            <p className="white">{this.state.lowBreakpoint}</p>
+            <p className="white">{this.state.highBreakpoint}</p>
+            <div className="headerLogoWrapper" ref={this.logo}>
+              <a className="mainLogoLink" href="#home">
+                <img className="drop-shadow" src={downloadUrl} />
               </a>
             </div>
-            <div class="CenterHeaderNav">
-              <div class="headerNavContainer">
+            <div className="CenterHeaderNav">
+              <div className="headerNavContainer">
                 <button
-                  class="icon-menu drop-shadow icon-BurgerMenu"
+                  className="icon-menu drop-shadow icon-BurgerMenu"
                   onClick={() => this.hover()}
                 ></button>
-                <nav className={dropdown ? dropdown + " header" : " header"}>
+                <nav
+                  className={openSideBar ? openSideBar + " header" : " header"}
+                >
                   <button onClick={() => this.hover()} className="close">
                     X
                   </button>
@@ -113,11 +161,11 @@ class Header extends React.Component {
             </div>
           </div>
         </header>
-        <section class="pageheader">
-          <div class="overlay"></div>
+        <section className="pageheader">
+          <div className="overlay"></div>
           <Pageheader
             addPaddingTop={this.state.headerHeight}
-            distanceLeft={this.state.spacingLeft}
+            addPaddingLeft={this.state.logoWidth}
           />
         </section>
       </div>

@@ -7,7 +7,6 @@ $background-color: rgb(201, 198, 192);
 $linkColor: #c1c0bc;
 $navbarBackgroundColor: #87857e;
 $padding: 40px;
-$logoWidth: 320px;
 $position-left-vertical-lign-of-logo: 87px;
 $navbarWidth: 250px;
 
@@ -20,6 +19,10 @@ $screensize-list: (
   xxl: 1400px,
 );
 
+.white {
+  color: white;
+}
+
 @mixin rule-for-screensize($rule, $size) {
   #{$rule}: map.get($screensize-list, $size);
 }
@@ -30,7 +33,7 @@ $screensize-list: (
   }
 }
 
-@mixin padding($position: all, $value: $padding20) {
+@mixin padding($position: all, $value: $padding) {
   @if index($position, "top") {
     padding: $value + px $padding 0 $padding;
   } @else if index($position, "right") {
@@ -40,7 +43,7 @@ $screensize-list: (
   } @else if index($position, "left") {
     padding: $padding $padding 0 $value + px;
   } @else {
-    padding: $padding20 $padding20 0 $padding20;
+    padding: $padding $padding 0 $padding;
   }
 }
 
@@ -134,7 +137,7 @@ body {
     height: 100%;
     width: 100%;
     background-color: black;
-    opacity: 0.5;
+    opacity: 0.7;
   }
   .pageHeaderWrapper {
     @include rule-for-screensize(max-width, xl);
@@ -174,10 +177,10 @@ header {
   align-items: var(--navbar-vertical-position);
   @include padding(left, 0);
   .headerLogoWrapper {
-    padding-left: $padding;
     grid-column: 1;
     display: flex;
     align-items: center;
+    padding-left: $padding;
     .mainLogoLink {
       width: fit-content;
       height: min-content;
