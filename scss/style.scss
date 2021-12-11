@@ -19,10 +19,6 @@ $screensize-list: (
   xxl: 1400px,
 );
 
-.white {
-  color: white;
-}
-
 @mixin rule-for-screensize($rule, $size) {
   #{$rule}: map.get($screensize-list, $size);
 }
@@ -44,20 +40,6 @@ $screensize-list: (
     padding: $padding $padding 0 $value + px;
   } @else {
     padding: $padding $padding 0 $padding;
-  }
-}
-
-button {
-  border: 0;
-  background-color: transparent;
-}
-a {
-  text-decoration: none;
-  &:hover {
-    opacity: 0.3;
-    @media (hover: none) {
-      opacity: 1;
-    }
   }
 }
 
@@ -120,6 +102,20 @@ a {
 body {
   background-color: $background-color;
   font-family: "Louis_George_Cafe";
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+}
+a {
+  text-decoration: none;
+  &:hover {
+    opacity: 0.3;
+    @media (hover: none) {
+      opacity: 1;
+    }
+  }
 }
 
 .drop-shadow {
@@ -248,7 +244,6 @@ header {
         padding: 5px 5px 0 0;
         display: block;
         width: 20%;
-
         color: white;
         cursor: pointer;
       }

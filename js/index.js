@@ -70,29 +70,6 @@ class Header extends React.Component {
     } else {
       this.setState({ logoWidth: "" });
     }
-  };
-  resizeOnChange = (e) => {
-    const headerHeight = this.header.current.clientHeight;
-    const logoHeight = this.logo.current.clientHeight;
-    const logoWidth = this.logo.current.clientWidth;
-    const padding = headerHeight - logoHeight;
-    if (
-      (this.state.lowBreakpoint &&
-        window.innerWidth < this.state.lowBreakpoint) ||
-      (this.state.highBreakpoint &&
-        window.innerWidth >= this.state.highBreakpoint)
-    ) {
-      this.setState({ headerHeight: headerHeight + padding });
-
-      if (window.innerWidth > 576) {
-        this.setState({ logoWidth: logoWidth });
-      } else {
-        this.setState({ logoWidth: "" });
-      }
-    }
-  };
-
-  componentDidMount() {
     const breakpoints = this.state.breakpoints.slice();
     const smallerBreakpoints = Array();
 
@@ -109,25 +86,31 @@ class Header extends React.Component {
       highBreakpoint:
         breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
     });
+  };
+  resizeOnChange = (e) => {
+    if (
+      (this.state.lowBreakpoint &&
+        window.innerWidth < this.state.lowBreakpoint) ||
+      (this.state.highBreakpoint &&
+        window.innerWidth >= this.state.highBreakpoint)
+    ) {
+      this.resize();
+    }
+  };
 
-    this.resize();
+  componentDidMount() {
+    setTimeout(() => {
+      this.resize();
+    }, 20);
   }
 
   render() {
     const openSideBar = this.state.cssClass;
-    console.log(this.state.lowBreakpoint);
-    console.log(this.state.highBreakpoint);
-
     window.addEventListener("resize", this.resizeOnChange);
-    console.log("layoutchange to: ");
-    console.log(this.state.lowBreakpoint + "-" + this.state.highBreakpoint);
-
     return (
       <div className="main">
         <header>
           <div id="headergrid" className="header-grid" ref={this.header}>
-            <p className="white">{this.state.lowBreakpoint}</p>
-            <p className="white">{this.state.highBreakpoint}</p>
             <div className="headerLogoWrapper" ref={this.logo}>
               <a className="mainLogoLink" href="#home">
                 <img className="drop-shadow" src={downloadUrl} />
@@ -168,6 +151,9 @@ class Header extends React.Component {
             addPaddingLeft={this.state.logoWidth}
           />
         </section>
+        <div className="content">
+          <h1 className="">Neue Inhalte</h1>
+        </div>
       </div>
     );
   }
