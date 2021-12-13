@@ -123,7 +123,6 @@ class Header extends React.Component {
               <a className="mainLogoLink" href="#home">
                 <img
                   className="drop-shadow"
-                  alt="test"
                   src={logoUrl}
                   onLoad={this.onImageLoad}
                   ref={this.logo}
