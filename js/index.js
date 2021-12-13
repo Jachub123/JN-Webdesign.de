@@ -60,61 +60,70 @@ class Header extends React.Component {
   }
 
   resize = () => {
-    const headerHeight = this.header.current.clientHeight;
-    const logoWidth = this.logo.current.clientWidth;
-    const padding = parseInt(
-      window
-        .getComputedStyle(this.header.current)
-        .getPropertyValue("padding-top"),
-      10
-    );
+    React.useEffect(() => {
+      const headerHeight = this.header.current.clientHeight;
+      const logoWidth = this.logo.current.clientWidth;
+      const padding = parseInt(
+        window
+          .getComputedStyle(this.header.current)
+          .getPropertyValue("padding-top"),
+        10
+      );
 
-    this.setState({ headerHeight: headerHeight + padding });
+      this.setState({ headerHeight: headerHeight + padding });
 
-    if (window.innerWidth > 576) {
-      this.setState({ logoWidth: logoWidth + padding });
-    } else {
-      this.setState({ logoWidth: "" });
-    }
-    const breakpoints = this.state.breakpoints.slice();
-    const smallerBreakpoints = Array();
-
-    const screensize = window.innerWidth;
-    breakpoints.map((breakpoint, index) => {
-      if (screensize > breakpoint) {
-        smallerBreakpoints.push(index);
+      if (window.innerWidth > 576) {
+        this.setState({ logoWidth: logoWidth + padding });
+      } else {
+        this.setState({ logoWidth: "" });
       }
-    });
+      const breakpoints = this.state.breakpoints.slice();
+      const smallerBreakpoints = Array();
 
-    this.setState({
-      lowBreakpoint:
-        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1]],
-      highBreakpoint:
-        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
+      const screensize = window.innerWidth;
+      breakpoints.map((breakpoint, index) => {
+        if (screensize > breakpoint) {
+          smallerBreakpoints.push(index);
+        }
+      });
+
+      this.setState({
+        lowBreakpoint:
+          breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1]],
+        highBreakpoint:
+          breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
+      });
     });
   };
   resizeOnChange = () => {
-    if (
-      (this.state.lowBreakpoint &&
-        window.innerWidth < this.state.lowBreakpoint) ||
-      (this.state.highBreakpoint &&
-        window.innerWidth >= this.state.highBreakpoint)
-    ) {
-      this.resize();
-    }
+    React.useEffect(() => {
+      if (
+        (this.state.lowBreakpoint &&
+          window.innerWidth < this.state.lowBreakpoint) ||
+        (this.state.highBreakpoint &&
+          window.innerWidth >= this.state.highBreakpoint)
+      ) {
+        this.resize();
+      }
+    });
   };
 
   onImageLoad = () => {
-    this.resize();
+    React.useEffect(() => {
+      this.resize();
+    });
   };
 
   componentDidMount() {
     this.onImageLoad();
+    if (typeof window !== `undefined`) {
+      window.addEventListener("resize", this.resizeOnChange);
+    }
   }
 
   render() {
     const openSideBar = this.state.cssClass;
-    window.addEventListener("resize", this.resizeOnChange);
+
     return (
       <div className="main">
         <header>
