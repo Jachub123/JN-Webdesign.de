@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import downloadUrl from "../img/logos/Logo3.0.svg";
+import logoUrl from "../img/logos/Logo3.0.svg";
 
 class Pageheader extends React.Component {
   render() {
@@ -42,9 +42,11 @@ class Header extends React.Component {
       cssClass: null,
       headerHeight: 0,
       logoWidth: 0,
+      logoHeight: 0,
       breakpoints: Array(0, 576, 768, 992, 1200, 1400),
       lowBreakpoint: null,
       highBreakpoint: null,
+      hasUpdated: false,
     };
 
     this.header = React.createRef();
@@ -57,16 +59,20 @@ class Header extends React.Component {
       : this.setState({ cssClass: "open" });
   }
 
-  resize = (e) => {
+  resize = () => {
     const headerHeight = this.header.current.clientHeight;
-    const logoHeight = this.logo.current.clientHeight;
     const logoWidth = this.logo.current.clientWidth;
-    const padding = headerHeight - logoHeight;
+    const padding = parseInt(
+      window
+        .getComputedStyle(this.header.current)
+        .getPropertyValue("padding-top"),
+      10
+    );
 
     this.setState({ headerHeight: headerHeight + padding });
 
     if (window.innerWidth > 576) {
-      this.setState({ logoWidth: logoWidth });
+      this.setState({ logoWidth: logoWidth + padding });
     } else {
       this.setState({ logoWidth: "" });
     }
@@ -87,7 +93,7 @@ class Header extends React.Component {
         breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
     });
   };
-  resizeOnChange = (e) => {
+  resizeOnChange = () => {
     if (
       (this.state.lowBreakpoint &&
         window.innerWidth < this.state.lowBreakpoint) ||
@@ -98,10 +104,12 @@ class Header extends React.Component {
     }
   };
 
+  onImageLoad = () => {
+    this.resize();
+  };
+
   componentDidMount() {
-    setTimeout(() => {
-      this.resize();
-    }, 20);
+    this.onImageLoad();
   }
 
   render() {
@@ -111,9 +119,14 @@ class Header extends React.Component {
       <div className="main">
         <header>
           <div id="headergrid" className="header-grid" ref={this.header}>
-            <div className="headerLogoWrapper" ref={this.logo}>
+            <div className="headerLogoWrapper">
               <a className="mainLogoLink" href="#home">
-                <img className="drop-shadow" src={downloadUrl} />
+                <img
+                  className="drop-shadow"
+                  src={logoUrl}
+                  onLoad={this.onImageLoad}
+                  ref={this.logo}
+                />
               </a>
             </div>
             <div className="CenterHeaderNav">
