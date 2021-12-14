@@ -5,8 +5,10 @@
 @import "../css/fonts.css";
 
 $background-color: rgb(201, 198, 192);
-$linkColor: #c1c0bc;
-$navbarBackgroundColor: #87857e;
+$linkColorHover: #33cccc;
+$navbarBackgroundColor: #2b456b;
+$contrastColor: #ffff;
+$linkColor: $contrastColor;
 $padding: 40px;
 $navbarWidth: 250px;
 $logoWidthSm: 150px;
@@ -19,13 +21,10 @@ $burgerMenuHeightWithOpenNavSm: $burgerMenuHeightSm * 0.5;
 $burgerMenuHeightWithOpenNavMd: $burgerMenuHeightMd * 0.5;
 $burgerMenuWidthWithOpenNavSm: $burgerMenuWidthSm * 0.5;
 $burgerMenuWidthWithOpenNavMd: $burgerMenuWidthMd * 0.5;
-$positionNavbarCloseIconCenterSm: calc(
-  $navbarWidth * 0.5 - $burgerMenuWidthWithOpenNavSm * 0.5
-);
-$positionNavbarCloseIconCenterMd: calc(
-  $navbarWidth * 0.5 - $burgerMenuWidthWithOpenNavMd * 0.5
-);
-$contrastColor: #ffff;
+$positionNavbarCloseIconCenterSm: $navbarWidth * 0.5 -
+  $burgerMenuWidthWithOpenNavSm * 0.5;
+$positionNavbarCloseIconCenterMd: $navbarWidth * 0.5 -
+  $burgerMenuWidthWithOpenNavMd * 0.5;
 
 $screensize-list: (
   xs: 0,
@@ -79,6 +78,10 @@ $screensize-list: (
   --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterSm};
   --navbar-linkContainer-flex-direction: column;
   --navbar-linkContainer-height: 50vh;
+  --navbar-background-color: #{$navbarBackgroundColor};
+  --hover-link-color: #{$linkColor};
+  --hover-underline-link: 0;
+  --hover-burgermenu-color: #{$contrastColor};
 }
 
 @include layout-for-screensize(md) {
@@ -93,6 +96,7 @@ $screensize-list: (
     --burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavMd};
     --burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavMd};
     --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterMd};
+    --navbar-background-color: none;
     --navbar-linkContainer-flex-direction: row;
     --navbar-linkContainer-height: fit-content;
     --navbar-vertical-position: start;
@@ -113,6 +117,15 @@ $screensize-list: (
     --navbar-width: #{$navbarWidth};
     --navbar-linkContainer-flex-direction: column;
     --navbar-linkContainer-height: 50vh;
+    --navbar-background-color: #{$navbarBackgroundColor};
+  }
+}
+
+@media (hover: hover) {
+  :root {
+    --hover-link-color: #{$linkColorHover};
+    --hover-burgermenu-color: #{$linkColorHover};
+    --hover-underline-link: 100%;
   }
 }
 
@@ -125,14 +138,39 @@ button {
   border: 0;
   background-color: transparent;
 }
-a {
-  text-decoration: none;
-  &:hover {
-    opacity: 0.3;
-    @media (hover: none) {
-      opacity: 1;
+.header-grid
+  .headerLogoWrapper
+  + .CenterHeaderNav
+  .headerNavContainer
+  nav
+  ul
+  .linkLiElement {
+  display: flex;
+  justify-content: center;
+  a {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 16pt;
+    transition: color 0.2s ease-in-out;
+    color: $contrastColor;
+    &:hover {
+      color: var(--hover-link-color);
+      .hoverBorder {
+        width: var(--hover-underline-link);
+      }
     }
   }
+}
+
+.hoverBorder {
+  width: 0;
+  height: 10px;
+  background-color: $linkColorHover;
+  transition: width 0.2s ease-in-out;
 }
 
 .drop-shadow {
@@ -194,7 +232,7 @@ header {
       .headerNavContainer {
         nav {
           right: 0;
-          background-color: $navbarBackgroundColor;
+          background-color: var(--navbar-background-color);
           + .burgerMenu {
             position: fixed;
             right: var(--navbar-position-CloseIcon-Center);
@@ -216,11 +254,6 @@ header {
             .line4 {
               transform: rotate(45deg);
               width: 100%;
-            }
-          }
-          ul {
-            a {
-              color: $contrastColor;
             }
           }
         }
@@ -268,25 +301,27 @@ header {
         cursor: pointer;
         color: $contrastColor;
         transition: all 0.4s ease-out;
+        &:hover .line {
+          background-color: var(--hover-burgermenu-color);
+        }
+        .line {
+          background-color: $contrastColor;
+          height: 2px;
+          transition: all 0.4s ease, opacity 0.2s, background-color 0.2s;
+        }
+        .line1 {
+          width: 100%;
+        }
+        .line2 {
+          width: 75%;
+        }
+        .line3 {
+          width: 100%;
+        }
+        .line4 {
+          width: 75%;
+        }
       }
-      .line {
-        background-color: $contrastColor;
-        height: 1px;
-        transition: all 0.4s ease-out;
-      }
-      .line1 {
-        width: 100%;
-      }
-      .line2 {
-        width: 75%;
-      }
-      .line3 {
-        width: 100%;
-      }
-      .line4 {
-        width: 75%;
-      }
-
       nav {
         display: flex;
         flex-direction: column;
@@ -305,16 +340,7 @@ header {
           width: 100%;
           height: var(--navbar-linkContainer-height);
         }
-        a {
-          display: flex;
-          font-size: 16pt;
-          justify-content: center;
-        }
       }
     }
   }
-}
-
-a {
-  color: $linkColor;
 }

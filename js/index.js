@@ -142,14 +142,20 @@ class Header extends React.Component {
               <div className="headerNavContainer">
                 <nav className=" header">
                   <ul>
-                    <li>
-                      <a href="#"> Leistungen</a>
+                    <li className="linkLiElement">
+                      <a href="#">
+                        Leistungen<div className="hoverBorder"></div>
+                      </a>
                     </li>
-                    <li>
-                      <a href="#">Referenzen</a>
+                    <li className="linkLiElement">
+                      <a href="#">
+                        Referenzen<div className="hoverBorder"></div>
+                      </a>
                     </li>
-                    <li>
-                      <a href="#">Kontakt</a>
+                    <li className="linkLiElement">
+                      <a href="#">
+                        Kontakt<div className="hoverBorder"></div>
+                      </a>
                     </li>
                   </ul>
                 </nav>
