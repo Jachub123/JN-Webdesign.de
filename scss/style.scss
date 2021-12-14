@@ -196,7 +196,7 @@ header {
           right: 0;
           background-color: $navbarBackgroundColor;
           + .burgerMenu {
-            position: absolute;
+            position: fixed;
             right: var(--navbar-position-CloseIcon-Center);
             height: var(--burgerMenu-height-openNav);
             width: var(--burgerMenu-width-openNav);
