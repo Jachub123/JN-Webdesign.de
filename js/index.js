@@ -60,58 +60,52 @@ class Header extends React.Component {
   }
 
   resize = () => {
-    React.useEffect(() => {
-      const headerHeight = this.header.current.clientHeight;
-      const logoWidth = this.logo.current.clientWidth;
-      const padding = parseInt(
-        window
-          .getComputedStyle(this.header.current)
-          .getPropertyValue("padding-top"),
-        10
-      );
+    const headerHeight = this.header.current.clientHeight;
+    const logoWidth = this.logo.current.clientWidth;
+    const padding = parseInt(
+      window
+        .getComputedStyle(this.header.current)
+        .getPropertyValue("padding-top"),
+      10
+    );
 
-      this.setState({ headerHeight: headerHeight + padding });
+    this.setState({ headerHeight: headerHeight + padding });
 
-      if (window.innerWidth > 576) {
-        this.setState({ logoWidth: logoWidth + padding });
-      } else {
-        this.setState({ logoWidth: "" });
+    if (window.innerWidth > 576) {
+      this.setState({ logoWidth: logoWidth + padding });
+    } else {
+      this.setState({ logoWidth: "" });
+    }
+    const breakpoints = this.state.breakpoints.slice();
+    const smallerBreakpoints = Array();
+
+    const screensize = window.innerWidth;
+    breakpoints.map((breakpoint, index) => {
+      if (screensize > breakpoint) {
+        smallerBreakpoints.push(index);
       }
-      const breakpoints = this.state.breakpoints.slice();
-      const smallerBreakpoints = Array();
+    });
 
-      const screensize = window.innerWidth;
-      breakpoints.map((breakpoint, index) => {
-        if (screensize > breakpoint) {
-          smallerBreakpoints.push(index);
-        }
-      });
-
-      this.setState({
-        lowBreakpoint:
-          breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1]],
-        highBreakpoint:
-          breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
-      });
+    this.setState({
+      lowBreakpoint:
+        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1]],
+      highBreakpoint:
+        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
     });
   };
   resizeOnChange = () => {
-    React.useEffect(() => {
-      if (
-        (this.state.lowBreakpoint &&
-          window.innerWidth < this.state.lowBreakpoint) ||
-        (this.state.highBreakpoint &&
-          window.innerWidth >= this.state.highBreakpoint)
-      ) {
-        this.resize();
-      }
-    });
+    if (
+      (this.state.lowBreakpoint &&
+        window.innerWidth < this.state.lowBreakpoint) ||
+      (this.state.highBreakpoint &&
+        window.innerWidth >= this.state.highBreakpoint)
+    ) {
+      this.resize();
+    }
   };
 
   onImageLoad = () => {
-    React.useEffect(() => {
-      this.resize();
-    });
+    this.resize();
   };
 
   componentDidMount() {
@@ -127,7 +121,13 @@ class Header extends React.Component {
     return (
       <div className="main">
         <header>
-          <div id="headergrid" className="header-grid" ref={this.header}>
+          <div
+            id="headergrid"
+            className={
+              openSideBar ? openSideBar + " header-grid" : "header-grid"
+            }
+            ref={this.header}
+          >
             <div className="headerLogoWrapper">
               <a className="mainLogoLink" href="#home">
                 <img
@@ -140,16 +140,7 @@ class Header extends React.Component {
             </div>
             <div className="CenterHeaderNav">
               <div className="headerNavContainer">
-                <button
-                  className="icon-menu drop-shadow icon-BurgerMenu"
-                  onClick={() => this.hover()}
-                ></button>
-                <nav
-                  className={openSideBar ? openSideBar + " header" : " header"}
-                >
-                  <button onClick={() => this.hover()} className="close">
-                    X
-                  </button>
+                <nav className=" header">
                   <ul>
                     <li>
                       <a href="#"> Leistungen</a>
@@ -162,6 +153,15 @@ class Header extends React.Component {
                     </li>
                   </ul>
                 </nav>
+                <div
+                  className="drop-shadow burgerMenu"
+                  onClick={() => this.hover()}
+                >
+                  <div className="line line1"></div>
+                  <div className="line line2"></div>
+                  <div className="line line3"></div>
+                  <div className="line line4"></div>
+                </div>
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:math";
 @import "../css/main.css";
 @import "../css/normalize.css";
 @import "../css/fonts.css";
@@ -8,6 +9,23 @@ $linkColor: #c1c0bc;
 $navbarBackgroundColor: #87857e;
 $padding: 40px;
 $navbarWidth: 250px;
+$logoWidthSm: 150px;
+$logoWidthMd: 200px;
+$burgerMenuWidthSm: $logoWidthSm * 0.5;
+$burgerMenuWidthMd: $logoWidthMd * 0.5;
+$burgerMenuHeightSm: $burgerMenuWidthSm;
+$burgerMenuHeightMd: $burgerMenuWidthMd;
+$burgerMenuHeightWithOpenNavSm: $burgerMenuHeightSm * 0.5;
+$burgerMenuHeightWithOpenNavMd: $burgerMenuHeightMd * 0.5;
+$burgerMenuWidthWithOpenNavSm: $burgerMenuWidthSm * 0.5;
+$burgerMenuWidthWithOpenNavMd: $burgerMenuWidthMd * 0.5;
+$positionNavbarCloseIconCenterSm: calc(
+  $navbarWidth * 0.5 - $burgerMenuWidthWithOpenNavSm * 0.5
+);
+$positionNavbarCloseIconCenterMd: calc(
+  $navbarWidth * 0.5 - $burgerMenuWidthWithOpenNavMd * 0.5
+);
+$contrastColor: #ffff;
 
 $screensize-list: (
   xs: 0,
@@ -51,13 +69,16 @@ $screensize-list: (
   --header-font-size-small: 10pt;
   --header-line-height: 35pt;
   --header-line-height-small: 25pt;
-  --navbar-display-icon: block;
+  --navbar-display-icon: flex;
   --navbar-width: #{$navbarWidth};
-  --navbar-grid-column: 1;
-  --navbar-grid-row: inherit;
-  --navbar-template-rows: repeat(3, 50px);
-  --navbar-template-columns: auto;
-  --logo-width: 150px;
+  --logo-width: #{$logoWidthSm};
+  --burgerMenu-width: #{$burgerMenuWidthSm};
+  --burgerMenu-height: #{$burgerMenuHeightSm};
+  --burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavSm};
+  --burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavSm};
+  --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterSm};
+  --navbar-linkContainer-flex-direction: column;
+  --navbar-linkContainer-height: 50vh;
 }
 
 @include layout-for-screensize(md) {
@@ -66,21 +87,20 @@ $screensize-list: (
     --header-font-size-small: 15pt;
     --header-line-height: 50pt;
     --header-line-height-small: 33pt;
-    --logo-width: 200px;
-  }
-}
-@include layout-for-screensize(md) {
-  :root {
+    --logo-width: #{$logoWidthMd};
+    --burgerMenu-width: #{$burgerMenuWidthMd};
+    --burgerMenu-height: #{$burgerMenuHeightMd};
+    --burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavMd};
+    --burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavMd};
+    --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterMd};
+    --navbar-linkContainer-flex-direction: row;
+    --navbar-linkContainer-height: fit-content;
     --navbar-vertical-position: start;
     --navbar-position: static;
     --display-header-text: block;
     --navbar-display-icon: none;
     --navbar-width: fit-content;
     --navbar-height: auto;
-    --navbar-grid-column: inherit;
-    --navbar-grid-row: 1;
-    --navbar-template-rows: auto;
-    --navbar-template-columns: repeat(3, auto);
   }
 }
 
@@ -89,12 +109,10 @@ $screensize-list: (
     --navbar-horizontal-position: end;
     --navbar-vertical-position: start;
     --navbar-position: fixed;
-    --navbar-display-icon: block;
+    --navbar-display-icon: flex;
     --navbar-width: #{$navbarWidth};
-    --navbar-grid-column: 1;
-    --navbar-grid-row: inherit;
-    --navbar-template-rows: repeat(3, 50px);
-    --navbar-template-columns: auto;
+    --navbar-linkContainer-flex-direction: column;
+    --navbar-linkContainer-height: 50vh;
   }
 }
 
@@ -143,14 +161,14 @@ a {
       font-variant: small-caps;
       font-size: var(--header-font-size);
       line-height: var(--header-line-height);
-      color: white;
+      color: $contrastColor;
       letter-spacing: 1.5pt;
     }
 
     .headSmallCaption {
       font-size: var(--header-font-size-small);
       line-height: var(--header-line-height-small);
-      color: white;
+      color: $contrastColor;
       letter-spacing: 1pt;
       font-weight: 500;
     }
@@ -171,6 +189,44 @@ header {
   margin-right: auto;
   align-items: var(--navbar-vertical-position);
   @include padding(left, 0);
+  &.open {
+    .CenterHeaderNav {
+      .headerNavContainer {
+        nav {
+          right: 0;
+          background-color: $navbarBackgroundColor;
+          + .burgerMenu {
+            position: absolute;
+            right: var(--navbar-position-CloseIcon-Center);
+            height: var(--burgerMenu-height-openNav);
+            width: var(--burgerMenu-width-openNav);
+            justify-content: center;
+            .line1 {
+              transform: rotate(-45deg);
+              width: 100%;
+            }
+            .line2 {
+              opacity: 0;
+              height: 0;
+            }
+            .line3 {
+              opacity: 0;
+              height: 0;
+            }
+            .line4 {
+              transform: rotate(45deg);
+              width: 100%;
+            }
+          }
+          ul {
+            a {
+              color: $contrastColor;
+            }
+          }
+        }
+      }
+    }
+  }
   .headerLogoWrapper {
     grid-column: 1;
     display: flex;
@@ -201,67 +257,58 @@ header {
       width: fit-content;
       height: fit-content;
       overflow: hidden;
-      .icon-BurgerMenu {
-        height: fit-content;
+      .burgerMenu {
         grid-column: 1;
         display: var(--navbar-display-icon);
-        font-size: 55pt;
+        flex-direction: column;
+        justify-content: space-evenly;
+        overflow: hidden;
+        width: var(--burgerMenu-width);
+        height: var(--burgerMenu-height);
         cursor: pointer;
-        color: white;
+        color: $contrastColor;
+        transition: all 0.4s ease-out;
       }
-    }
-  }
-
-  nav {
-    position: var(--navbar-position);
-    top: 0;
-    right: -$navbarWidth;
-    width: var(--navbar-width);
-    height: 100%;
-    transition: all 0.4s ease-out;
-    ul {
-      display: grid;
-      column-gap: 10px;
-      grid-template-rows: var(--navbar-template-rows);
-      grid-template-columns: var(--navbar-template-columns);
-    }
-    .close {
-      display: none;
-    }
-    a {
-      display: var(--display-header-text);
-      font-size: 16pt;
-    }
-    &.open {
-      display: flex;
-      flex-direction: column;
-      align-items: end;
-      right: 0;
-      background-color: $navbarBackgroundColor;
-      .close {
-        height: 35px;
-        padding: 5px 5px 0 0;
-        display: block;
-        width: 20%;
-        color: white;
-        cursor: pointer;
+      .line {
+        background-color: $contrastColor;
+        height: 1px;
+        transition: all 0.4s ease-out;
       }
-      ul {
+      .line1 {
         width: 100%;
-        li {
-          grid-column: var(--navbar-grid-column);
-          grid-row: var(--navbar-grid-row);
+      }
+      .line2 {
+        width: 75%;
+      }
+      .line3 {
+        width: 100%;
+      }
+      .line4 {
+        width: 75%;
+      }
 
-          &:not(:last-child) {
-            border-bottom: 1px solid darken($navbarBackgroundColor, 5%);
-          }
+      nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: var(--navbar-position);
+        top: 0;
+        right: -$navbarWidth;
+        width: var(--navbar-width);
+        height: 100%;
+        transition: all 0.4s ease-out;
+        ul {
+          display: flex;
+          column-gap: 10px;
+          flex-direction: var(--navbar-linkContainer-flex-direction);
+          justify-content: space-evenly;
+          width: 100%;
+          height: var(--navbar-linkContainer-height);
         }
         a {
           display: flex;
+          font-size: 16pt;
           justify-content: center;
-          align-items: center;
-          height: 100%;
-          color: white;
         }
       }
     }
