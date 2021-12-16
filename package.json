@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "gatsby": "^4.3.0",
     "react": "^17.0.2",
+    "parcel": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
@@ -15,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "parcel index.html --open",
-    "build": "parcel build index.html --open",
+    "build": "parcel build index.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
