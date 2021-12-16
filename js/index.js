@@ -180,7 +180,22 @@ class Header extends React.Component {
           />
         </section>
         <div className="content">
-          <h1 className="">Neue Inhalte</h1>
+          <section className="sectionResponsive">
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+            <h1 className="">Neue Inhalte</h1>
+          </section>
         </div>
       </div>
     );

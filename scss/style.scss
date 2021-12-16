@@ -4,10 +4,12 @@
 @import "../css/normalize.css";
 @import "../css/fonts.css";
 
-$background-color: rgb(201, 198, 192);
+$background-color: rgb(142, 216, 216);
 $linkColorHover: #33cccc;
-$navbarBackgroundColor: #2b456b;
+$mainColor1: #2b456b;
+$mainColor2: #3a6289;
 $contrastColor: #ffff;
+$contrastColor2: #bacccb;
 $linkColor: $contrastColor;
 $padding: 40px;
 $navbarWidth: 250px;
@@ -66,8 +68,8 @@ $screensize-list: (
   --display-header-text: none;
   --header-font-size: 14pt;
   --header-font-size-small: 10pt;
-  --header-line-height: 35pt;
-  --header-line-height-small: 25pt;
+  --header-line-height: 30pt;
+  --header-line-height-small: 20pt;
   --navbar-display-icon: flex;
   --navbar-width: #{$navbarWidth};
   --logo-width: #{$logoWidthSm};
@@ -78,7 +80,7 @@ $screensize-list: (
   --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterSm};
   --navbar-linkContainer-flex-direction: column;
   --navbar-linkContainer-height: 50vh;
-  --navbar-background-color: #{$navbarBackgroundColor};
+  --navbar-background-color: #{$mainColor1};
   --hover-link-color: #{$linkColor};
   --hover-underline-link: 0;
   --hover-burgermenu-color: #{$contrastColor};
@@ -88,8 +90,8 @@ $screensize-list: (
   :root {
     --header-font-size: 22pt;
     --header-font-size-small: 15pt;
-    --header-line-height: 50pt;
-    --header-line-height-small: 33pt;
+    --header-line-height: 42pt;
+    --header-line-height-small: 28pt;
     --logo-width: #{$logoWidthMd};
     --burgerMenu-width: #{$burgerMenuWidthMd};
     --burgerMenu-height: #{$burgerMenuHeightMd};
@@ -117,7 +119,7 @@ $screensize-list: (
     --navbar-width: #{$navbarWidth};
     --navbar-linkContainer-flex-direction: column;
     --navbar-linkContainer-height: 50vh;
-    --navbar-background-color: #{$navbarBackgroundColor};
+    --navbar-background-color: #{$mainColor1};
   }
 }
 
@@ -130,7 +132,6 @@ $screensize-list: (
 }
 
 body {
-  background-color: $background-color;
   font-family: "Louis_George_Cafe";
 }
 
@@ -181,6 +182,7 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left;
+  background-attachment: fixed;
   min-height: 100vh;
   position: relative;
   .overlay {
@@ -342,5 +344,13 @@ header {
         }
       }
     }
+  }
+}
+
+.sectionResponsive {
+  @include padding();
+  background-color: $mainColor2;
+  h1 {
+    color: $contrastColor2;
   }
 }
