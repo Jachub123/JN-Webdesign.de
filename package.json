@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "gatsby": "^4.3.0",
     "react": "^17.0.2",
-    "parcel": "^17.0.2",
+    "parcel": "latest",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
