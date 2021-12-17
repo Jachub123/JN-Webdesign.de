@@ -343,7 +343,17 @@ header {
         transition: all 0.4s ease-out;
         ul {
           display: flex;
-          column-gap: 10px;
+          @supports (column-gap: 0.9rem) {
+            column-gap: 0.9rem;
+          }
+          @supports not (column-gap: 0.9rem) {
+            li {
+              margin-right: 0.9rem;
+            }
+            li:last-child {
+              margin-right: 0;
+            }
+          }
           flex-direction: var(--navbar-linkContainer-flex-direction);
           @supports (justify-content: space-evenly) {
             justify-content: space-evenly;
@@ -351,6 +361,9 @@ header {
           @supports not (justify-content: space-evenly) {
             li {
               margin-bottom: 1.2 rem;
+            }
+            li:last-child {
+              margin-bottom: 0;
             }
           }
 
