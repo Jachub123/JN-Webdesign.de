@@ -62,7 +62,7 @@ $screensize-list: (
 }
 
 :root {
-  --navbar-horizontal-position: end;
+  --navbar-horizontal-position: flex-end;
   --navbar-vertical-position: start;
   --navbar-position: fixed;
   --display-header-text: none;
@@ -112,7 +112,7 @@ $screensize-list: (
 
 @media (pointer: coarse) {
   :root {
-    --navbar-horizontal-position: end;
+    --navbar-horizontal-position: flex-end;
     --navbar-vertical-position: start;
     --navbar-position: fixed;
     --navbar-display-icon: flex;
@@ -241,6 +241,9 @@ header {
             height: var(--burgerMenu-height-openNav);
             width: var(--burgerMenu-width-openNav);
             justify-content: center;
+            .line:nth-child(n) {
+              margin-bottom: 0;
+            }
             .line1 {
               transform: rotate(-45deg);
               width: 100%;
@@ -286,10 +289,8 @@ header {
   .CenterHeaderNav {
     display: flex;
     grid-column: 2;
-    justify-content: var(--navbar-horizontal-position);
-    @supports (justify-content: end) {
-      float: right;
-    }
+    float: right;
+    justify-content: flex-end;
     .headerNavContainer {
       display: grid;
       width: fit-content;
@@ -299,13 +300,16 @@ header {
         grid-column: 1;
         display: var(--navbar-display-icon);
         flex-direction: column;
-        justify-content: space-evenly;
+        //justify-content: space-evenly;
         overflow: hidden;
         width: var(--burgerMenu-width);
         height: var(--burgerMenu-height);
         cursor: pointer;
         color: $contrastColor;
         transition: all 0.4s ease-out;
+        .line {
+          margin-bottom: 1rem;
+        }
         &:hover .line {
           background-color: var(--hover-burgermenu-color);
         }
@@ -341,7 +345,15 @@ header {
           display: flex;
           column-gap: 10px;
           flex-direction: var(--navbar-linkContainer-flex-direction);
-          justify-content: space-evenly;
+          @supports (justify-content: space-evenly) {
+            justify-content: space-evenly;
+          }
+          @supports not (justify-content: space-evenly) {
+            li {
+              margin-bottom: 1.2 rem;
+            }
+          }
+
           width: 100%;
           height: var(--navbar-linkContainer-height);
         }
