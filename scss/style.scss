@@ -241,8 +241,8 @@ header {
             height: var(--burgerMenu-height-openNav);
             width: var(--burgerMenu-width-openNav);
             justify-content: center;
-            .line:nth-child(n) {
-              margin-bottom: 0;
+            .line {
+              margin: 0;
             }
             .line1 {
               transform: rotate(-45deg);
@@ -360,7 +360,7 @@ header {
           }
           @supports not (justify-content: space-evenly) {
             li {
-              margin-bottom: 1.2 rem;
+              margin-bottom: 25%;
             }
             li:last-child {
               margin-bottom: 0;
