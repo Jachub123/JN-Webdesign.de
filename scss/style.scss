@@ -19,9 +19,14 @@ $burgerMenuWidthSm: $logoWidthSm * 0.5;
 $burgerMenuWidthMd: $logoWidthMd * 0.5;
 $burgerMenuHeightSm: $burgerMenuWidthSm;
 $burgerMenuHeightMd: $burgerMenuWidthMd;
-
-$positionNavMenuiconOpenNavSm: $navbarWidth * 0.5 - $burgerMenuWidthSm * 0.5;
-$positionNavMenuiconOpenNavMd: $navbarWidth * 0.5 - $burgerMenuWidthMd * 0.5;
+$burgerMenuHeightWithOpenNavSm: $burgerMenuHeightSm * 0.5;
+$burgerMenuHeightWithOpenNavMd: $burgerMenuHeightMd * 0.5;
+$burgerMenuWidthWithOpenNavSm: $burgerMenuWidthSm * 0.5;
+$burgerMenuWidthWithOpenNavMd: $burgerMenuWidthMd * 0.5;
+$positionNavbarCloseIconCenterSm: $navbarWidth * 0.5 -
+  $burgerMenuWidthWithOpenNavSm * 0.5;
+$positionNavbarCloseIconCenterMd: $navbarWidth * 0.5 -
+  $burgerMenuWidthWithOpenNavMd * 0.5;
 
 $screensize-list: (
   xs: 0,
@@ -70,7 +75,9 @@ $screensize-list: (
   --logo-width: #{$logoWidthSm};
   --burgerMenu-width: #{$burgerMenuWidthSm};
   --burgerMenu-height: #{$burgerMenuHeightSm};
-  --navbar-position-CloseIcon-Center: #{$positionNavMenuiconOpenNavSm};
+  --burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavSm};
+  --burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavSm};
+  --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterSm};
   --navbar-linkContainer-flex-direction: column;
   --navbar-linkContainer-height: 50vh;
   --navbar-background-color: #{$mainColor1};
@@ -88,9 +95,9 @@ $screensize-list: (
     --logo-width: #{$logoWidthMd};
     --burgerMenu-width: #{$burgerMenuWidthMd};
     --burgerMenu-height: #{$burgerMenuHeightMd};
-    //--burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavMd};
-    //--burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavMd};
-    --navbar-position-CloseIcon-Center: #{$positionNavMenuiconOpenNavMd};
+    --burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavMd};
+    --burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavMd};
+    --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterMd};
     --navbar-background-color: none;
     --navbar-linkContainer-flex-direction: row;
     --navbar-linkContainer-height: fit-content;
@@ -149,7 +156,7 @@ button {
     justify-content: center;
     text-decoration: none;
     font-size: 16pt;
-    transition: color 0.2s ease-in;
+    transition: color 0.2s ease-in-out;
     color: $contrastColor;
     &:hover {
       color: var(--hover-link-color);
@@ -164,7 +171,7 @@ button {
   width: 0;
   height: 10px;
   background-color: $linkColorHover;
-  transition: width 0.2s ease-in;
+  transition: width 0.2s ease-in-out;
 }
 
 .drop-shadow {
@@ -228,9 +235,11 @@ header {
         nav {
           right: 0;
           background-color: var(--navbar-background-color);
-          .burgerMenu {
-            position: relative;
-            right: 0;
+          + .burgerMenu {
+            position: fixed;
+            right: var(--navbar-position-CloseIcon-Center);
+            height: var(--burgerMenu-height-openNav);
+            width: var(--burgerMenu-width-openNav);
             justify-content: center;
             .line1 {
               transform: rotate(-45deg);
@@ -283,9 +292,40 @@ header {
       width: fit-content;
       height: fit-content;
       overflow: hidden;
+      .burgerMenu {
+        grid-column: 1;
+        display: var(--navbar-display-icon);
+        flex-direction: column;
+        justify-content: space-evenly;
+        overflow: hidden;
+        width: var(--burgerMenu-width);
+        height: var(--burgerMenu-height);
+        cursor: pointer;
+        color: $contrastColor;
+        transition: all 0.4s ease-out;
+        &:hover .line {
+          background-color: var(--hover-burgermenu-color);
+        }
+        .line {
+          background-color: $contrastColor;
+          height: 2px;
+          transition: all 0.4s ease, opacity 0.2s, background-color 0.2s;
+        }
+        .line1 {
+          width: 100%;
+        }
+        .line2 {
+          width: 75%;
+        }
+        .line3 {
+          width: 100%;
+        }
+        .line4 {
+          width: 75%;
+        }
+      }
       nav {
-        display: grid;
-        grid-template-rows: 20% 80%;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         position: var(--navbar-position);
@@ -293,44 +333,8 @@ header {
         right: -$navbarWidth;
         width: var(--navbar-width);
         height: 100%;
-        transition: all 0.4s ease-in;
-        .burgerMenu {
-          position: absolute;
-          right: $navbarWidth + $padding;
-          top: $padding;
-          grid-row: 1;
-          display: var(--navbar-display-icon);
-          flex-direction: column;
-          justify-content: space-evenly;
-          overflow: hidden;
-          width: var(--burgerMenu-width);
-          height: var(--burgerMenu-height);
-          cursor: pointer;
-          color: $contrastColor;
-          transition: all 0.4s ease-in;
-          &:hover .line {
-            background-color: var(--hover-burgermenu-color);
-          }
-          .line {
-            background-color: $contrastColor;
-            height: 2px;
-            transition: all 0.4s ease, opacity 0.2s, background-color 0.2s;
-          }
-          .line1 {
-            width: 100%;
-          }
-          .line2 {
-            width: 75%;
-          }
-          .line3 {
-            width: 100%;
-          }
-          .line4 {
-            width: 75%;
-          }
-        }
+        transition: all 0.4s ease-out;
         ul {
-          grid-row: 2;
           display: flex;
           column-gap: 10px;
           flex-direction: var(--navbar-linkContainer-flex-direction);
