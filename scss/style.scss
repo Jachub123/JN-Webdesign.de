@@ -287,6 +287,9 @@ header {
     display: flex;
     grid-column: 2;
     justify-content: var(--navbar-horizontal-position);
+    @supports (justify-content: end) {
+      float: right;
+    }
     .headerNavContainer {
       display: grid;
       width: fit-content;
