@@ -343,30 +343,31 @@ header {
         transition: all 0.4s ease-out;
         ul {
           display: flex;
+          li {
+            margin-right: 0.9rem;
+            &:last-child {
+              margin-right: 0;
+            }
+          }
           @supports (column-gap: 0.9rem) {
             column-gap: 0.9rem;
-          }
-          @supports not (column-gap: 0.9rem) {
             li {
-              margin-right: 0.9rem;
-            }
-            li:last-child {
               margin-right: 0;
             }
           }
           flex-direction: var(--navbar-linkContainer-flex-direction);
-          @supports (justify-content: space-evenly) {
-            justify-content: space-evenly;
-          }
-          @supports not (justify-content: space-evenly) {
-            li {
-              margin-bottom: 25%;
-            }
-            li:last-child {
+          li {
+            margin-bottom: 25%;
+            &:last-child {
               margin-bottom: 0;
             }
           }
-
+          @supports (justify-content: space-evenly) {
+            justify-content: space-evenly;
+            li {
+              margin-bottom: 0;
+            }
+          }
           width: 100%;
           height: var(--navbar-linkContainer-height);
         }
