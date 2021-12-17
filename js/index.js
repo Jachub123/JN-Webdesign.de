@@ -141,6 +141,15 @@ class Header extends React.Component {
             <div className="CenterHeaderNav">
               <div className="headerNavContainer">
                 <nav className=" header">
+                  <div
+                    className="drop-shadow burgerMenu"
+                    onClick={() => this.hover()}
+                  >
+                    <div className="line line1"></div>
+                    <div className="line line2"></div>
+                    <div className="line line3"></div>
+                    <div className="line line4"></div>
+                  </div>
                   <ul>
                     <li className="linkLiElement">
                       <a href="#">
@@ -159,15 +168,6 @@ class Header extends React.Component {
                     </li>
                   </ul>
                 </nav>
-                <div
-                  className="drop-shadow burgerMenu"
-                  onClick={() => this.hover()}
-                >
-                  <div className="line line1"></div>
-                  <div className="line line2"></div>
-                  <div className="line line3"></div>
-                  <div className="line line4"></div>
-                </div>
               </div>
             </div>
           </div>
