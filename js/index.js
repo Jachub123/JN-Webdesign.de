@@ -47,16 +47,48 @@ class Header extends React.Component {
       lowBreakpoint: null,
       highBreakpoint: null,
       hasUpdated: false,
+      menuIconPosition: null,
     };
 
     this.header = React.createRef();
     this.logo = React.createRef();
+    this.menuIcon = React.createRef();
   }
 
-  hover() {
+  openNav() {
     this.state.cssClass
       ? this.setState({ cssClass: null })
       : this.setState({ cssClass: "open" });
+  }
+
+  positionIcon() {
+    const menuButton = this.menuIcon.current;
+    const positionMenuButton = menuButton.getBoundingClientRect();
+    const navbarOpenWidth =
+      this.header.current.querySelector(".header").clientWidth;
+    if (typeof positionMenuButton !== "function") {
+      console.log(window.innerWidth - positionMenuButton.x);
+      console.log(positionMenuButton);
+      this.state.menuIconPosition
+        ? this.setState({
+            menuIconPosition: null,
+          })
+        : this.setState({
+            menuIconPosition: {
+              marginRight: -(
+                window.innerWidth -
+                positionMenuButton.right -
+                0.5 * navbarOpenWidth +
+                positionMenuButton.width * 0.5
+              ),
+            },
+          });
+    }
+  }
+
+  transformIcon() {
+    this.positionIcon();
+    this.openNav();
   }
 
   resize = () => {
@@ -104,15 +136,18 @@ class Header extends React.Component {
     }
   };
 
+  positionIconOnChange = () => {
+    this.positionIcon();
+  };
+
   onImageLoad = () => {
     this.resize();
   };
 
   componentDidMount() {
     this.onImageLoad();
-    if (typeof window !== `undefined`) {
-      window.addEventListener("resize", this.resizeOnChange);
-    }
+    window.addEventListener("resize", this.resizeOnChange);
+    window.addEventListener("position", this.positionIconOnChange);
   }
 
   render() {
@@ -139,7 +174,10 @@ class Header extends React.Component {
               </a>
             </div>
             <div className="CenterHeaderNav">
-              <div className="headerNavContainer">
+              <div
+                className="headerNavContainer"
+                style={this.state.menuIconPosition}
+              >
                 <nav className=" header">
                   <ul>
                     <li className="linkLiElement">
@@ -161,7 +199,8 @@ class Header extends React.Component {
                 </nav>
                 <div
                   className="drop-shadow burgerMenu"
-                  onClick={() => this.hover()}
+                  onClick={() => this.transformIcon()}
+                  ref={this.menuIcon}
                 >
                   <div className="line line1"></div>
                   <div className="line line2"></div>

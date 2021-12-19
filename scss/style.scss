@@ -13,20 +13,10 @@ $contrastColor2: #bacccb;
 $linkColor: $contrastColor;
 $padding: 40px;
 $navbarWidth: 250px;
-$logoWidthSm: 150px;
-$logoWidthMd: 200px;
-$burgerMenuWidthSm: $logoWidthSm * 0.5;
-$burgerMenuWidthMd: $logoWidthMd * 0.5;
-$burgerMenuHeightSm: $burgerMenuWidthSm;
-$burgerMenuHeightMd: $burgerMenuWidthMd;
-$burgerMenuHeightWithOpenNavSm: $burgerMenuHeightSm * 0.5;
-$burgerMenuHeightWithOpenNavMd: $burgerMenuHeightMd * 0.5;
-$burgerMenuWidthWithOpenNavSm: $burgerMenuWidthSm * 0.5;
-$burgerMenuWidthWithOpenNavMd: $burgerMenuWidthMd * 0.5;
-$positionNavbarCloseIconCenterSm: $navbarWidth * 0.5 -
-  $burgerMenuWidthWithOpenNavSm * 0.5;
-$positionNavbarCloseIconCenterMd: $navbarWidth * 0.5 -
-  $burgerMenuWidthWithOpenNavMd * 0.5;
+$logoWidth: 150px;
+$burgerMenuWidth: $logoWidth * 0.5;
+$burgerMenuHeight: $burgerMenuWidth * 0.75;
+$positionNavbarCloseIconCenter: $navbarWidth * 0.5 - $burgerMenuWidth * 0.5;
 
 $screensize-list: (
   xs: 0,
@@ -37,7 +27,7 @@ $screensize-list: (
   xxl: 1400px,
 );
 
-@mixin rule-for-screensize($rule, $size) {
+@mixin rule-with-screensize($rule, $size) {
   #{$rule}: map.get($screensize-list, $size);
 }
 
@@ -49,15 +39,15 @@ $screensize-list: (
 
 @mixin padding($position: all, $value: $padding) {
   @if index($position, "top") {
-    padding: $value + px $padding 0 $padding;
+    padding: $value $padding 0 $padding;
   } @else if index($position, "right") {
-    padding: $padding $value + px 0 $padding;
+    padding: $padding $value 0 $padding;
   } @else if index($position, "bottom") {
-    padding: $padding $padding $value + px $padding;
+    padding: $padding $padding $value $padding;
   } @else if index($position, "left") {
-    padding: $padding $padding 0 $value + px;
+    padding: $padding $padding 0 $value;
   } @else {
-    padding: $padding $padding 0 $padding;
+    padding: $value $value 0 $value;
   }
 }
 
@@ -72,18 +62,14 @@ $screensize-list: (
   --header-line-height-small: 20pt;
   --navbar-display-icon: flex;
   --navbar-width: #{$navbarWidth};
-  --logo-width: #{$logoWidthSm};
-  --burgerMenu-width: #{$burgerMenuWidthSm};
-  --burgerMenu-height: #{$burgerMenuHeightSm};
-  --burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavSm};
-  --burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavSm};
-  --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterSm};
   --navbar-linkContainer-flex-direction: column;
   --navbar-linkContainer-height: 50vh;
   --navbar-background-color: #{$mainColor1};
   --hover-link-color: #{$linkColor};
   --hover-underline-link: 0;
   --hover-burgermenu-color: #{$contrastColor};
+  --navbar-link-column-gap: 25%;
+  --navbar-link-row-gap: 0;
 }
 
 @include layout-for-screensize(md) {
@@ -92,12 +78,6 @@ $screensize-list: (
     --header-font-size-small: 15pt;
     --header-line-height: 42pt;
     --header-line-height-small: 28pt;
-    --logo-width: #{$logoWidthMd};
-    --burgerMenu-width: #{$burgerMenuWidthMd};
-    --burgerMenu-height: #{$burgerMenuHeightMd};
-    --burgerMenu-height-openNav: #{$burgerMenuHeightWithOpenNavMd};
-    --burgerMenu-width-openNav: #{$burgerMenuWidthWithOpenNavMd};
-    --navbar-position-CloseIcon-Center: #{$positionNavbarCloseIconCenterMd};
     --navbar-background-color: none;
     --navbar-linkContainer-flex-direction: row;
     --navbar-linkContainer-height: fit-content;
@@ -107,6 +87,8 @@ $screensize-list: (
     --navbar-display-icon: none;
     --navbar-width: fit-content;
     --navbar-height: auto;
+    --navbar-link-column-gap: 0;
+    --navbar-link-row-gap: 0.9rem;
   }
 }
 
@@ -120,6 +102,8 @@ $screensize-list: (
     --navbar-linkContainer-flex-direction: column;
     --navbar-linkContainer-height: 50vh;
     --navbar-background-color: #{$mainColor1};
+    --navbar-link-column-gap: 21%;
+    --navbar-link-row-gap: 0;
   }
 }
 
@@ -128,6 +112,51 @@ $screensize-list: (
     --hover-link-color: #{$linkColorHover};
     --hover-burgermenu-color: #{$linkColorHover};
     --hover-underline-link: 100%;
+  }
+}
+
+@mixin logoSizes-for-big-screens(
+  $width: null,
+  $height: null,
+  $navbarPositionTop: null,
+  $centerCloseIcon: null,
+  $burgerMenuPositionRight: null
+) {
+  @if $width and $height {
+    width: $width;
+    height: $height;
+    @media (min-width: map.get($screensize-list, md)) {
+      width: $width * 1.33;
+      height: $height * 1.33;
+    }
+  } @else if $width {
+    width: $width;
+    @media (min-width: map.get($screensize-list, md)) {
+      width: $width * 1.33;
+    }
+  } @else if $height {
+    height: $height;
+    @media (min-width: map.get($screensize-list, md)) {
+      height: $height * 1.33;
+    }
+  } @else if $burgerMenuPositionRight {
+    right: $burgerMenuPositionRight;
+    @media (min-width: map.get($screensize-list, md)) {
+      right: $burgerMenuPositionRight * 1.33;
+    }
+  } @else if $navbarPositionTop {
+    margin-top: $navbarPositionTop + 2 * $padding;
+    @media (min-width: map.get($screensize-list, md)) {
+      margin-top: $navbarPositionTop * 1.33 + 2 * $padding;
+    }
+    @include layout-for-screensize(md) {
+      margin-top: 0;
+    }
+    @media (pointer: coarse) {
+      margin-top: $navbarPositionTop + 2 * $padding;
+    }
+  } @else {
+    content: "add at least one parameter to logosize mixin";
   }
 }
 
@@ -193,10 +222,10 @@ button {
     opacity: 0.7;
   }
   .pageHeaderWrapper {
-    @include rule-for-screensize(max-width, xl);
+    @include rule-with-screensize(max-width, xl);
     margin-left: auto;
     margin-right: auto;
-    padding-left: $padding;
+    @include padding(bottom, $padding);
     .headMediumCaption {
       font-variant: small-caps;
       font-size: var(--header-font-size);
@@ -222,25 +251,25 @@ header {
 }
 
 .header-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
-  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   align-items: var(--navbar-vertical-position);
   @include padding(left, 0);
+  @include rule-with-screensize(max-width, xl);
+  transition: all 0.4s ease;
   &.open {
     .CenterHeaderNav {
       .headerNavContainer {
+        position: fixed;
+        overflow: visible;
         nav {
           right: 0;
           background-color: var(--navbar-background-color);
           + .burgerMenu {
-            position: fixed;
-            right: var(--navbar-position-CloseIcon-Center);
-            height: var(--burgerMenu-height-openNav);
-            width: var(--burgerMenu-width-openNav);
-            justify-content: center;
+            position: relative;
             .line {
               margin: 0;
             }
@@ -277,7 +306,7 @@ header {
         opacity: 1;
       }
       img {
-        width: var(--logo-width);
+        @include logoSizes-for-big-screens($width: $logoWidth);
       }
     }
     span {
@@ -289,26 +318,26 @@ header {
   .CenterHeaderNav {
     display: flex;
     grid-column: 2;
-    float: right;
     justify-content: flex-end;
     .headerNavContainer {
       display: grid;
       width: fit-content;
       height: fit-content;
       overflow: hidden;
+      transition: margin-right 0.5s ease;
       .burgerMenu {
-        grid-column: 1;
         display: var(--navbar-display-icon);
         flex-direction: column;
-        //justify-content: space-evenly;
-        overflow: hidden;
-        width: var(--burgerMenu-width);
-        height: var(--burgerMenu-height);
+        @include logoSizes-for-big-screens($width: $burgerMenuWidth);
+        @include logoSizes-for-big-screens($height: $burgerMenuHeight);
+        justify-content: center;
         cursor: pointer;
         color: $contrastColor;
-        transition: all 0.4s ease-out;
         .line {
-          margin-bottom: 1rem;
+          margin-bottom: 21%;
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
         &:hover .line {
           background-color: var(--hover-burgermenu-color);
@@ -316,7 +345,7 @@ header {
         .line {
           background-color: $contrastColor;
           height: 2px;
-          transition: all 0.4s ease, opacity 0.2s, background-color 0.2s;
+          transition: all 0.5s ease, opacity 0.3s, height 0.5s;
         }
         .line1 {
           width: 100%;
@@ -333,43 +362,29 @@ header {
       }
       nav {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         position: var(--navbar-position);
         top: 0;
         right: -$navbarWidth;
         width: var(--navbar-width);
         height: 100%;
-        transition: all 0.4s ease-out;
+        transition: all 0.4s ease;
         ul {
           display: flex;
-          li {
-            margin-right: 0.9rem;
-            &:last-child {
-              margin-right: 0;
-            }
-          }
-          @supports (column-gap: 0.9rem) {
-            column-gap: 0.9rem;
-            li {
-              margin-right: 0;
-            }
-          }
+          justify-content: center;
           flex-direction: var(--navbar-linkContainer-flex-direction);
+          @include logoSizes-for-big-screens(
+            $navbarPositionTop: $burgerMenuHeight
+          );
           li {
-            margin-bottom: 25%;
+            height: 100%;
+            max-height: 150px;
+            margin-right: var(--navbar-link-row-gap);
+            margin-bottom: var(--navbar-link-column-gap);
             &:last-child {
-              margin-bottom: 0;
+              margin-right: 0;
             }
           }
-          @supports (justify-content: space-evenly) {
-            justify-content: space-evenly;
-            li {
-              margin-bottom: 0;
-            }
-          }
-          width: 100%;
-          height: var(--navbar-linkContainer-height);
         }
       }
     }
