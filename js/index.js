@@ -6,7 +6,7 @@ class Pageheader extends React.Component {
   render() {
     return (
       <div
-        className="pageHeaderWrapper"
+        className="pageHeaderWrapper contentBox"
         style={{
           paddingTop: this.props.addPaddingTop,
           paddingLeft: this.props.addPaddingLeft,
@@ -47,7 +47,12 @@ class Header extends React.Component {
       lowBreakpoint: null,
       highBreakpoint: null,
       hasUpdated: false,
-      menuIconPosition: null,
+      fixedPosition: null,
+      menuIconPosition: {
+        marginRight: null,
+        transitionDuration: "0.5s",
+      },
+      menuIconClicked: false,
     };
 
     this.header = React.createRef();
@@ -64,25 +69,73 @@ class Header extends React.Component {
   positionIcon() {
     const menuButton = this.menuIcon.current;
     const positionMenuButton = menuButton.getBoundingClientRect();
-    const navbarOpenWidth =
-      this.header.current.querySelector(".header").clientWidth;
-    if (typeof positionMenuButton !== "function") {
-      console.log(window.innerWidth - positionMenuButton.x);
-      console.log(positionMenuButton);
-      this.state.menuIconPosition
-        ? this.setState({
-            menuIconPosition: null,
-          })
-        : this.setState({
-            menuIconPosition: {
-              marginRight: -(
-                window.innerWidth -
-                positionMenuButton.right -
-                0.5 * navbarOpenWidth +
-                positionMenuButton.width * 0.5
-              ),
-            },
-          });
+    const header = this.header.current;
+    const headerPropertyValue = window.getComputedStyle(header);
+    const transitionDuration =
+      parseFloat(headerPropertyValue.getPropertyValue("transition-duration")) *
+      1000;
+    const headerWidth = header.clientWidth;
+    const headerPaddingRight = parseInt(
+      headerPropertyValue.getPropertyValue("padding-right"),
+      10
+    );
+    const headerPaddingTop = parseInt(
+      headerPropertyValue.getPropertyValue("padding-top"),
+      10
+    );
+    const headerPosition = header.getBoundingClientRect();
+    const defaultPositionMenuIcon =
+      headerPosition.x + headerWidth - headerPaddingRight;
+    const defaultPositionMenuIconRight =
+      window.innerWidth - defaultPositionMenuIcon;
+    const navbarOpenWidth = header.querySelector(".header").clientWidth;
+    if (
+      (this.state.menuIconPosition &&
+        this.state.menuIconPosition.marginRight) ||
+      this.header.current.classList.contains("open")
+    ) {
+      console.log(headerPaddingTop);
+      if (headerPosition.top <= -(menuButton.clientHeight + headerPaddingTop)) {
+        this.setState({
+          menuIconPosition: {
+            marginRight: null,
+            position: "static",
+            right: defaultPositionMenuIconRight,
+          },
+        });
+      } else {
+        this.setState({
+          menuIconPosition: {
+            marginRight: null,
+            marginTop: headerPosition.top,
+            position: "fixed",
+            right: defaultPositionMenuIconRight,
+          },
+        });
+        setTimeout(
+          () =>
+            this.setState({
+              menuIconPosition: {
+                marginRight: null,
+                position: "static",
+                transitionDuration: "0s",
+              },
+            }),
+          transitionDuration
+        );
+      }
+    } else {
+      this.setState({
+        menuIconPosition: {
+          marginRight: -(
+            window.innerWidth -
+            positionMenuButton.right -
+            0.5 * navbarOpenWidth +
+            positionMenuButton.width * 0.5
+          ),
+          position: "fixed",
+        },
+      });
     }
   }
 
@@ -137,7 +190,35 @@ class Header extends React.Component {
   };
 
   positionIconOnChange = () => {
-    this.positionIcon();
+    const sideBarOpen = this.header.current.classList.contains("open");
+    const menuButton = this.menuIcon.current;
+    const positionMenuButton = menuButton.getBoundingClientRect();
+    const navbar = this.header.current.querySelector(".header");
+    const navbarOpenWidth = navbar.clientWidth;
+    const CssPositionNavbar = window
+      .getComputedStyle(navbar)
+      .getPropertyValue("position");
+    if (CssPositionNavbar === "static") {
+      this.setState({ menuIconPosition: null });
+      return;
+    }
+    if (this.state.menuIconPosition && sideBarOpen) {
+      this.setState({
+        menuIconPosition: {
+          right: 0.5 * navbarOpenWidth - positionMenuButton.width * 0.5,
+          transitionDuration: "0s",
+          position: "fixed",
+        },
+      });
+    } else if (!this.state.menuIconPosition && sideBarOpen) {
+      this.setState({
+        menuIconPosition: {
+          right: 0.5 * navbarOpenWidth - positionMenuButton.width * 0.5,
+          transitionDuration: "0s",
+          position: "fixed",
+        },
+      });
+    }
   };
 
   onImageLoad = () => {
@@ -147,7 +228,7 @@ class Header extends React.Component {
   componentDidMount() {
     this.onImageLoad();
     window.addEventListener("resize", this.resizeOnChange);
-    window.addEventListener("position", this.positionIconOnChange);
+    window.addEventListener("resize", this.positionIconOnChange);
   }
 
   render() {
@@ -159,7 +240,9 @@ class Header extends React.Component {
           <div
             id="headergrid"
             className={
-              openSideBar ? openSideBar + " header-grid" : "header-grid"
+              openSideBar
+                ? openSideBar + " header-grid contentBox"
+                : "header-grid contentBox"
             }
             ref={this.header}
           >
@@ -218,8 +301,8 @@ class Header extends React.Component {
             addPaddingLeft={this.state.logoWidth}
           />
         </section>
-        <div className="content">
-          <section className="sectionResponsive">
+        <div className="sectionResponsive">
+          <section className="responsiveWrapper contentBox">
             <h1 className="">Neue Inhalte</h1>
             <h1 className="">Neue Inhalte</h1>
             <h1 className="">Neue Inhalte</h1>

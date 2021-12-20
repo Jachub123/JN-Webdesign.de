@@ -37,18 +37,13 @@ $screensize-list: (
   }
 }
 
-@mixin padding($position: all, $value: $padding) {
-  @if index($position, "top") {
-    padding: $value $padding 0 $padding;
-  } @else if index($position, "right") {
-    padding: $padding $value 0 $padding;
-  } @else if index($position, "bottom") {
-    padding: $padding $padding $value $padding;
-  } @else if index($position, "left") {
-    padding: $padding $padding 0 $value;
-  } @else {
-    padding: $value $value 0 $value;
-  }
+@mixin padding(
+  $top: $padding,
+  $right: $padding,
+  $bottom: $padding,
+  $left: $padding
+) {
+  padding: $top $right $bottom $left;
 }
 
 :root {
@@ -185,7 +180,7 @@ button {
     justify-content: center;
     text-decoration: none;
     font-size: 16pt;
-    transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease;
     color: $contrastColor;
     &:hover {
       color: var(--hover-link-color);
@@ -222,10 +217,7 @@ button {
     opacity: 0.7;
   }
   .pageHeaderWrapper {
-    @include rule-with-screensize(max-width, xl);
-    margin-left: auto;
-    margin-right: auto;
-    @include padding(bottom, $padding);
+    @include padding($right: 0);
     .headMediumCaption {
       font-variant: small-caps;
       font-size: var(--header-font-size);
@@ -254,16 +246,12 @@ header {
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
-  margin-left: auto;
-  margin-right: auto;
   align-items: var(--navbar-vertical-position);
-  @include padding(left, 0);
-  @include rule-with-screensize(max-width, xl);
+  @include padding($left: 0);
   transition: all 0.4s ease;
   &.open {
     .CenterHeaderNav {
       .headerNavContainer {
-        position: fixed;
         overflow: visible;
         nav {
           right: 0;
@@ -324,7 +312,10 @@ header {
       width: fit-content;
       height: fit-content;
       overflow: hidden;
-      transition: margin-right 0.5s ease;
+      transition: all 0.5s ease;
+      &.deactivateTransition {
+        transition: margin-right 0s ease;
+      }
       .burgerMenu {
         display: var(--navbar-display-icon);
         flex-direction: column;
@@ -391,8 +382,17 @@ header {
   }
 }
 
-.sectionResponsive {
+.contentBox {
+  @include rule-with-screensize(max-width, xl);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.responsiveWrapper {
   @include padding();
+}
+
+.sectionResponsive {
   background-color: $mainColor2;
   h1 {
     color: $contrastColor2;
