@@ -69,6 +69,7 @@ class Header extends React.Component {
   positionIcon() {
     const menuButton = this.menuIcon.current;
     const positionMenuButton = menuButton.getBoundingClientRect();
+    const windowWidthWithoutScrollbar = document.getElementById("root").clientWidth;
     const header = this.header.current;
     const headerPropertyValue = window.getComputedStyle(header);
     const transitionDuration =
@@ -87,14 +88,13 @@ class Header extends React.Component {
     const defaultPositionMenuIcon =
       headerPosition.x + headerWidth - headerPaddingRight;
     const defaultPositionMenuIconRight =
-      window.innerWidth - defaultPositionMenuIcon;
+    windowWidthWithoutScrollbar - defaultPositionMenuIcon;
     const navbarOpenWidth = header.querySelector(".header").clientWidth;
     if (
       (this.state.menuIconPosition &&
         this.state.menuIconPosition.marginRight) ||
       this.header.current.classList.contains("open")
     ) {
-      console.log(headerPaddingTop);
       if (headerPosition.top <= -(menuButton.clientHeight + headerPaddingTop)) {
         this.setState({
           menuIconPosition: {
@@ -125,10 +125,11 @@ class Header extends React.Component {
         );
       }
     } else {
+      console.log(positionMenuButton.right);
       this.setState({
         menuIconPosition: {
           marginRight: -(
-            window.innerWidth -
+            windowWidthWithoutScrollbar -
             positionMenuButton.right -
             0.5 * navbarOpenWidth +
             positionMenuButton.width * 0.5
@@ -264,18 +265,18 @@ class Header extends React.Component {
                 <nav className=" header">
                   <ul>
                     <li className="linkLiElement">
-                      <a href="#">
-                        Leistungen<div className="hoverBorder"></div>
+                      <a linktext="Leistungen" href="#">Leistungen
+                      <p >Leistungen</p><div className="hoverBorder"></div>
                       </a>
                     </li>
                     <li className="linkLiElement">
-                      <a href="#">
-                        Referenzen<div className="hoverBorder"></div>
+                      <a linktext="Referenzen" href="#">Referenzen
+                        <p >Referenzen</p><div className="hoverBorder"></div>
                       </a>
                     </li>
                     <li className="linkLiElement">
-                      <a href="#">
-                        Kontakt<div className="hoverBorder"></div>
+                      <a linktext="Kontakt" href="#">Kontakt
+                      <p >Kontakt</p><div className="hoverBorder"></div>
                       </a>
                     </li>
                   </ul>

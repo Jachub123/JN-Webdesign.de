@@ -173,17 +173,59 @@ button {
   display: flex;
   justify-content: center;
   a {
+    position: relative;
     display: flex;
     width: fit-content;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     text-decoration: none;
     font-size: 16pt;
-    transition: color 0.2s ease;
-    color: $contrastColor;
+    color: transparent;
+    p{
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: $contrastColor;
+      margin: 0;
+      transition: 0.3s ease;
+    }
+    &::after{
+      content:attr(linktext);
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color:$contrastColor;
+      transition: width 0.2s ease;
+      transition-delay: 0.2s;
+
+    }
+    &::before{
+      content:attr(linktext);
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      color:$mainColor1;
+      
+      transition: width 0.4s ease;
+    }
     &:hover {
-      color: var(--hover-link-color);
+      p{
+        opacity: 0;
+      }
+      &::after{
+        width: 100%;
+      }      
+      &::before{
+        width: 100%;
+      }
       .hoverBorder {
         width: var(--hover-underline-link);
       }
@@ -194,8 +236,8 @@ button {
 .hoverBorder {
   width: 0;
   height: 10px;
-  background-color: $linkColorHover;
-  transition: width 0.2s ease-in-out;
+  background-color: $mainColor1;
+  transition: width 0.4s ease-in-out;
 }
 
 .drop-shadow {
