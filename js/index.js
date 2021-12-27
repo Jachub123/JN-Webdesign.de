@@ -129,7 +129,7 @@ class Header extends React.Component {
       console.log(positionMenuButton.right);
       this.setState({
         menuIconPosition: {
-          paddingRight: -(
+          marginRight: -(
             windowWidthWithoutScrollbar -
             positionMenuButton.right -
             0.5 * navbarOpenWidth +
