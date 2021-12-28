@@ -51,10 +51,10 @@ $screensize-list: (
   --navbar-vertical-position: start;
   --navbar-position: fixed;
   --display-header-text: none;
-  --header-font-size: 14pt;
-  --header-font-size-small: 10pt;
-  --header-line-height: 30pt;
-  --header-line-height-small: 20pt;
+  --header-font-size: 0.875rem;
+  --header-font-size-small: 0,625rem;
+  --header-line-height: 1.75rem;
+  --header-line-height-small: 1.25rem;
   --navbar-display-icon: flex;
   --navbar-width: #{$navbarWidth};
   --navbar-linkContainer-flex-direction: column;
@@ -69,10 +69,10 @@ $screensize-list: (
 
 @include layout-for-screensize(md) {
   :root {
-    --header-font-size: 22pt;
-    --header-font-size-small: 15pt;
-    --header-line-height: 42pt;
-    --header-line-height-small: 28pt;
+    --header-font-size: 1.6rem;
+    --header-font-size-small: 1.0rem;
+    --header-line-height: 3.2rem;
+    --header-line-height-small: 1.8rem;
     --navbar-background-color: none;
     --navbar-linkContainer-flex-direction: row;
     --navbar-linkContainer-height: fit-content;
@@ -83,7 +83,7 @@ $screensize-list: (
     --navbar-width: fit-content;
     --navbar-height: auto;
     --navbar-link-column-gap: 0;
-    --navbar-link-row-gap: 0.9rem;
+    --navbar-link-row-gap: 0.5rem;
   }
 }
 
@@ -155,6 +155,10 @@ $screensize-list: (
   }
 }
 
+html{
+  font-size: 20px;
+}
+
 body {
   font-family: "Louis_George_Cafe";
 }
@@ -179,15 +183,23 @@ button {
     flex-direction: column;
     justify-content: center;
     text-decoration: none;
-    font-size: 16pt;
+    font-size: 1.1rem;
     color: transparent;
     p{
       position: absolute;
       top: 0;
       left: 0;
-      color: $contrastColor;
+      color: $linkColorHover;
       margin: 0;
       transition: 0.3s ease;
+    }
+    span{
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0;
+      color: $contrastColor;
+      transition-delay: 0.4s;
     }
     &::after{
       content:attr(linktext);
@@ -199,9 +211,8 @@ button {
       overflow: hidden;
       white-space: nowrap;
       color:$contrastColor;
-      transition: width 0.3s ease;
-      transition-delay: 0.1s;
-
+      transition: width 0.2s ease;
+      transition-delay: 0.2s;
     }
     &::before{
       content:attr(linktext);
@@ -213,12 +224,14 @@ button {
       overflow: hidden;
       white-space: nowrap;
       color:$mainColor1;
-      
       transition: width 0.4s ease;
     }
     &:hover {
       p{
-        opacity: 0;
+        opacity: 0.4;
+      }
+      span{
+        opacity: 1;
       }
       &::after{
         width: 100%;
@@ -265,14 +278,14 @@ button {
       font-size: var(--header-font-size);
       line-height: var(--header-line-height);
       color: $contrastColor;
-      letter-spacing: 1.5pt;
+      letter-spacing: 0.15rem;
     }
 
     .headSmallCaption {
       font-size: var(--header-font-size-small);
       line-height: var(--header-line-height-small);
       color: $contrastColor;
-      letter-spacing: 1pt;
+      letter-spacing: 0.08rem;
       font-weight: 500;
     }
   }

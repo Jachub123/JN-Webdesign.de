@@ -134,9 +134,27 @@ class Header extends React.Component {
             0.5 * navbarOpenWidth +
             positionMenuButton.width * 0.5
           ),
-          position: "fixed",
+          marginTop: - headerPosition.top,
+
         },
       });
+      setTimeout(
+        () =>
+          this.setState({
+            menuIconPosition: {
+              marginRight: -(
+                windowWidthWithoutScrollbar -
+                positionMenuButton.right -
+                0.5 * navbarOpenWidth +
+                positionMenuButton.width * 0.5
+              ),
+              marginTop: null,
+              position: "fixed",
+              transitionDuration: "0s",
+            },
+          }),
+        transitionDuration
+      );
     }
   }
 
@@ -265,18 +283,18 @@ class Header extends React.Component {
                 <nav className=" header">
                   <ul>
                     <li className="linkLiElement">
-                      <a linktext="Leistungen" href="#">Leistungen
-                      <p >Leistungen</p><div className="hoverBorder"></div>
+                      <a linktext="Leistungen" href="#">Leistungen 0
+                      <p >Leistungen</p><span className="icon-star-full1"></span><div className="hoverBorder"></div>
                       </a>
                     </li>
                     <li className="linkLiElement">
-                      <a linktext="Referenzen" href="#">Referenzen
-                        <p >Referenzen</p><div className="hoverBorder"></div>
+                      <a linktext="Referenzen" href="#">Referenzen 0
+                        <p >Referenzen</p><span className="icon-star-full1"></span><div className="hoverBorder"></div>
                       </a>
                     </li>
                     <li className="linkLiElement">
-                      <a linktext="Kontakt" href="#">Kontakt
-                      <p >Kontakt</p><div className="hoverBorder"></div>
+                      <a linktext="Kontakt" href="#">Kontakt 0
+                      <p >Kontakt</p><span className="icon-star-full1"></span><div className="hoverBorder"></div>
                       </a>
                     </li>
                   </ul>

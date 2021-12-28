@@ -21,17 +21,16 @@
   font-display: block;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "icomoon" !important;
+  font-family: 'icomoon' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-
+  
   /* Enable Ligatures ================ */
   letter-spacing: 0;
   -webkit-font-feature-settings: "liga";
@@ -47,8 +46,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-BurgerMenu:before {
-  content: "\e900";
+.icon-star-empty:before {
+  content: "\e9d7";
+}
+.icon-star-full:before {
+  content: "\e9d9";
 }
 .icon-home3:before {
   content: "\e902";
@@ -106,6 +108,12 @@
 }
 .icon-mail4:before {
   content: "\ea86";
+}
+.icon-star-full1:before {
+  content: "\e901";
+}
+.icon-BurgerMenu:before {
+  content: "\e900";
 }
 .icon-image:before {
   content: "\e90d";
