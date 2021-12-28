@@ -63,8 +63,8 @@ $screensize-list: (
   --hover-link-color: #{$linkColor};
   --hover-underline-link: 0;
   --hover-burgermenu-color: #{$contrastColor};
-  --navbar-link-column-gap: 25%;
-  --navbar-link-row-gap: 0;
+  --navbar-link-column-gap: 0;
+  --navbar-link-row-gap: 25%;
 }
 
 @include layout-for-screensize(md) {
@@ -82,8 +82,8 @@ $screensize-list: (
     --navbar-display-icon: none;
     --navbar-width: fit-content;
     --navbar-height: auto;
-    --navbar-link-column-gap: 0;
-    --navbar-link-row-gap: 0.5rem;
+    --navbar-link-column-gap: 1.5rem;
+    --navbar-link-row-gap: 0;
   }
 }
 
@@ -97,8 +97,8 @@ $screensize-list: (
     --navbar-linkContainer-flex-direction: column;
     --navbar-linkContainer-height: 50vh;
     --navbar-background-color: #{$mainColor1};
-    --navbar-link-column-gap: 21%;
-    --navbar-link-row-gap: 0;
+    --navbar-link-column-gap: 0;
+    --navbar-link-row-gap: 21%;
   }
 }
 
@@ -183,7 +183,7 @@ button {
     flex-direction: column;
     justify-content: center;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: transparent;
     p{
       position: absolute;
@@ -425,8 +425,8 @@ header {
           li {
             height: 100%;
             max-height: 150px;
-            margin-right: var(--navbar-link-row-gap);
-            margin-bottom: var(--navbar-link-column-gap);
+            margin-right: var(--navbar-link-column-gap);
+            margin-bottom: var(--navbar-link-row-gap);
             &:last-child {
               margin-right: 0;
             }
