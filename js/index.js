@@ -69,7 +69,8 @@ class Header extends React.Component {
   positionIcon() {
     const menuButton = this.menuIcon.current;
     const positionMenuButton = menuButton.getBoundingClientRect();
-    const windowWidthWithoutScrollbar = document.getElementById("root").clientWidth;
+    const windowWidthWithoutScrollbar =
+      document.getElementById("root").clientWidth;
     const header = this.header.current;
     const headerPropertyValue = window.getComputedStyle(header);
     const transitionDuration =
@@ -86,9 +87,9 @@ class Header extends React.Component {
     );
     const headerPosition = header.getBoundingClientRect();
     const defaultPositionMenuIcon =
-      headerPosition.x + headerWidth - headerPaddingRight;
+      headerPosition.left + headerWidth - headerPaddingRight;
     const defaultPositionMenuIconRight =
-    windowWidthWithoutScrollbar - defaultPositionMenuIcon;
+      windowWidthWithoutScrollbar - defaultPositionMenuIcon;
     const navbarOpenWidth = header.querySelector(".header").clientWidth;
     if (
       (this.state.menuIconPosition &&
@@ -142,14 +143,9 @@ class Header extends React.Component {
         () =>
           this.setState({
             menuIconPosition: {
-              marginRight: -(
-                windowWidthWithoutScrollbar -
-                positionMenuButton.right -
-                0.5 * navbarOpenWidth +
-                positionMenuButton.width * 0.5
-              ),
-              marginTop: null,
+              marginRight: null,
               position: "fixed",
+              right: 0.5 * navbarOpenWidth - positionMenuButton.width * 0.5,
               transitionDuration: "0s",
             },
           }),
