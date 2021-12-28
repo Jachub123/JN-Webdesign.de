@@ -87,7 +87,7 @@ class Header extends React.Component {
     );
     const headerPosition = header.getBoundingClientRect();
     const defaultPositionMenuIcon =
-      headerPosition.x + headerWidth - headerPaddingRight;
+      headerPosition.left + headerWidth - headerPaddingRight;
     const defaultPositionMenuIconRight =
       windowWidthWithoutScrollbar - defaultPositionMenuIcon;
     const navbarOpenWidth = header.querySelector(".header").clientWidth;
@@ -135,9 +135,20 @@ class Header extends React.Component {
             0.5 * navbarOpenWidth +
             positionMenuButton.width * 0.5
           ),
-          position: "fixed",
         },
       });
+      setTimeout(
+        () =>
+          this.setState({
+            menuIconPosition: {
+              marginRight: null,
+              position: "fixed",
+              right: 0.5 * navbarOpenWidth - positionMenuButton.width * 0.5,
+              transitionDuration: "0s",
+            },
+          }),
+        transitionDuration
+      );
     }
   }
 
