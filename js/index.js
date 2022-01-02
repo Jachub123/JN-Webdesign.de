@@ -52,6 +52,7 @@ class Header extends React.Component {
         marginRight: null,
         transitionDuration: "0.5s",
       },
+      logoContainerPull: null,
       menuIconClicked: false,
     };
 
@@ -96,6 +97,11 @@ class Header extends React.Component {
         this.state.menuIconPosition.marginRight) ||
       this.header.current.classList.contains("open")
     ) {
+      this.setState({
+        logoContainerPull: {
+          marginRight: null,
+        },
+      });
       if (headerPosition.top <= -(menuButton.clientHeight + headerPaddingTop)) {
         this.setState({
           menuIconPosition: {
@@ -126,16 +132,25 @@ class Header extends React.Component {
         );
       }
     } else {
-      console.log(positionMenuButton.right);
+      const menuIconPosition =
+        windowWidthWithoutScrollbar -
+        positionMenuButton.right -
+        0.5 * navbarOpenWidth +
+        positionMenuButton.width * 0.5;
+      function pullMenuIcon() {
+        if (menuIconPosition < 0) {
+          return menuIconPosition;
+        } else {
+          return null;
+        }
+      }
       this.setState({
         menuIconPosition: {
-          marginRight: -(
-            windowWidthWithoutScrollbar -
-            positionMenuButton.right -
-            0.5 * navbarOpenWidth +
-            positionMenuButton.width * 0.5
-          ),
+          marginRight: -menuIconPosition,
           marginTop: -headerPosition.top,
+        },
+        logoContainerPull: {
+          marginRight: pullMenuIcon(),
         },
       });
       setTimeout(
@@ -260,7 +275,10 @@ class Header extends React.Component {
             }
             ref={this.header}
           >
-            <div className="headerLogoWrapper">
+            <div
+              className="headerLogoWrapper"
+              style={this.state.logoContainerPull}
+            >
               <a className="mainLogoLink" href="#home">
                 <img
                   className="drop-shadow"
