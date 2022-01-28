@@ -43,7 +43,14 @@ class Header extends React.Component {
       headerHeight: 0,
       logoWidth: 0,
       logoHeight: 0,
-      breakpoints: Array(0, 576, 768, 992, 1200, 1400),
+      breakpoints: Array({
+        xs: 0,
+        sm: 576,
+        md: 768,
+        lg: 992,
+        xl: 1200,
+        xxl: 1400,
+      }),
       lowBreakpoint: null,
       highBreakpoint: null,
       hasUpdated: false,
@@ -190,32 +197,20 @@ class Header extends React.Component {
     } else {
       this.setState({ logoWidth: "" });
     }
-    const breakpoints = this.state.breakpoints.slice();
-    const smallerBreakpoints = Array();
+  };
 
-    const screensize = window.innerWidth;
+  resizeOnChange = () => {
+    const breakpoints = this.state.breakpoints.slice();
     breakpoints.map((breakpoint, index) => {
-      if (screensize > breakpoint) {
-        smallerBreakpoints.push(index);
+      for (const [key, value] of Object.entries(breakpoint)) {
+        if (key == "xs" || key == "sm" || key == "md") {
+          const mediaQuery = window.matchMedia("(min-width: " + value + ")");
+          if (mediaQuery.matches) {
+            this.resize();
+          }
+        }
       }
     });
-
-    this.setState({
-      lowBreakpoint:
-        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1]],
-      highBreakpoint:
-        breakpoints[smallerBreakpoints[smallerBreakpoints.length - 1] + 1],
-    });
-  };
-  resizeOnChange = () => {
-    if (
-      (this.state.lowBreakpoint &&
-        window.innerWidth < this.state.lowBreakpoint) ||
-      (this.state.highBreakpoint &&
-        window.innerWidth >= this.state.highBreakpoint)
-    ) {
-      this.resize();
-    }
   };
 
   positionIconOnChange = () => {

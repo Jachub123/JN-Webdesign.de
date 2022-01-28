@@ -4,6 +4,8 @@
 @import "../css/normalize.css";
 @import "../css/fonts.css";
 
+//Define Css in Html head with react to be able to manipulate the css directly via react.
+
 $background-color: rgb(142, 216, 216);
 $linkColorHover: #33cccc;
 $mainColor1: #2b456b;
@@ -11,12 +13,19 @@ $mainColor2: #3a6289;
 $contrastColor: #ffffff;
 $contrastColor2: #bacccb;
 $linkColor: $contrastColor;
-$padding: 40px;
+$paddingSm: 10px;
+$paddingMd: 40px;
 $navbarWidth: 250px;
 $logoWidth: 150px;
 $burgerMenuWidth: $logoWidth * 0.5;
 $burgerMenuHeight: $burgerMenuWidth * 0.75;
 $positionNavbarCloseIconCenter: $navbarWidth * 0.5 - $burgerMenuWidth * 0.5;
+$headerFontsizeSm: 0.8rem;
+$headerLineHeightSm: 1.8rem;
+$headerFontsizeMd: 1.1rem;
+$headerlineheightMd: 2.4rem;
+$linkFontSize: 0.9rem;
+$ratio: 1.33;
 
 $screensize-list: (
   xs: 0,
@@ -37,24 +46,13 @@ $screensize-list: (
   }
 }
 
-@mixin padding(
-  $top: $padding,
-  $right: $padding,
-  $bottom: $padding,
-  $left: $padding
-) {
-  padding: $top $right $bottom $left;
-}
-
 :root {
+  --font-size: 20px;
+  --padding: #{$paddingSm};
   --navbar-horizontal-position: flex-end;
   --navbar-vertical-position: start;
   --navbar-position: fixed;
   --display-header-text: none;
-  --header-font-size: 0.875rem;
-  --header-font-size-small: 0,625rem;
-  --header-line-height: 1.75rem;
-  --header-line-height-small: 1.25rem;
   --navbar-display-icon: flex;
   --navbar-width: #{$navbarWidth};
   --navbar-linkContainer-flex-direction: column;
@@ -69,10 +67,8 @@ $screensize-list: (
 
 @include layout-for-screensize(md) {
   :root {
-    --header-font-size: 1.6rem;
-    --header-font-size-small: 1.0rem;
-    --header-line-height: 3.2rem;
-    --header-line-height-small: 1.8rem;
+    --font-size: 25px;
+    --padding: #{$paddingMd};
     --navbar-background-color: none;
     --navbar-linkContainer-flex-direction: row;
     --navbar-linkContainer-height: fit-content;
@@ -110,6 +106,31 @@ $screensize-list: (
   }
 }
 
+@mixin padding(
+  $top: var(--padding),
+  $right: var(--padding),
+  $bottom: var(--padding),
+  $left: var(--padding)
+) {
+  padding: $top $right $bottom $left;
+  /* 
+  $positions: (
+    "top": $top,
+    "right": $right,
+    "bottom": $bottom,
+    "left": $left,
+  );
+
+  @include layout-for-screensize(md) {
+    padding: $paddingMd $paddingMd $paddingMd $paddingMd;
+    @each $key, $value in $positions {
+      @if $value != $paddingSm {
+        padding-$key: $value; <--- fill in #{key} instead of $key
+      }
+    }
+  } */
+}
+
 @mixin logoSizes-for-big-screens(
   $width: null,
   $height: null,
@@ -120,43 +141,46 @@ $screensize-list: (
   @if $width and $height {
     width: $width;
     height: $height;
-    @media (min-width: map.get($screensize-list, md)) {
-      width: $width * 1.33;
-      height: $height * 1.33;
+    @include layout-for-screensize(md) {
+      width: $width * $ratio;
+      height: $height * $ratio;
     }
   } @else if $width {
     width: $width;
-    @media (min-width: map.get($screensize-list, md)) {
-      width: $width * 1.33;
+    @include layout-for-screensize(md) {
+      width: $width * $ratio;
     }
   } @else if $height {
     height: $height;
-    @media (min-width: map.get($screensize-list, md)) {
-      height: $height * 1.33;
+    @include layout-for-screensize(md) {
+      height: $height * $ratio;
     }
   } @else if $burgerMenuPositionRight {
     right: $burgerMenuPositionRight;
-    @media (min-width: map.get($screensize-list, md)) {
-      right: $burgerMenuPositionRight * 1.33;
+    @include layout-for-screensize(md) {
+      right: $burgerMenuPositionRight * $ratio;
     }
   } @else if $navbarPositionTop {
-    margin-top: $navbarPositionTop + 2 * $padding;
-    @media (min-width: map.get($screensize-list, md)) {
-      margin-top: $navbarPositionTop * 1.33 + 2 * $padding;
+    margin-top: $navbarPositionTop + 2 * $paddingMd;
+    @include layout-for-screensize(md) {
+      margin-top: $navbarPositionTop * $ratio + 2 * $paddingMd;
     }
     @include layout-for-screensize(md) {
       margin-top: 0;
     }
     @media (pointer: coarse) {
-      margin-top: $navbarPositionTop + 2 * $padding;
+      margin-top: $navbarPositionTop + 2 * $paddingSm;
+      @include layout-for-screensize(md) {
+        margin-top: $navbarPositionTop + 2 * $paddingMd;
+      }
     }
   } @else {
     content: "add at least one parameter to logosize mixin";
   }
 }
 
-html{
-  font-size: 20px;
+html {
+  font-size: var(--font-size);
 }
 
 body {
@@ -183,9 +207,9 @@ button {
     flex-direction: column;
     justify-content: center;
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: $linkFontSize;
     color: transparent;
-    p{
+    p {
       position: absolute;
       top: 0;
       left: 0;
@@ -193,7 +217,7 @@ button {
       margin: 0;
       transition: 0.3s ease;
     }
-    span{
+    span {
       position: absolute;
       top: 0;
       right: 0;
@@ -201,8 +225,8 @@ button {
       color: $contrastColor;
       transition-delay: 0.4s;
     }
-    &::after{
-      content:attr(linktext);
+    &::after {
+      content: attr(linktext);
       z-index: 2;
       position: absolute;
       top: 0;
@@ -210,12 +234,12 @@ button {
       width: 0;
       overflow: hidden;
       white-space: nowrap;
-      color:$contrastColor;
+      color: $contrastColor;
       transition: width 0.2s ease;
       transition-delay: 0.2s;
     }
-    &::before{
-      content:attr(linktext);
+    &::before {
+      content: attr(linktext);
       z-index: 1;
       position: absolute;
       top: 0;
@@ -223,20 +247,20 @@ button {
       width: 0;
       overflow: hidden;
       white-space: nowrap;
-      color:$mainColor1;
+      color: $mainColor1;
       transition: width 0.4s ease;
     }
     &:hover {
-      p{
+      p {
         opacity: 0.4;
       }
-      span{
+      span {
         opacity: 1;
       }
-      &::after{
+      &::after {
         width: 100%;
-      }      
-      &::before{
+      }
+      &::before {
         width: 100%;
       }
       .hoverBorder {
@@ -275,15 +299,15 @@ button {
     @include padding($right: 0);
     .headMediumCaption {
       font-variant: small-caps;
-      font-size: var(--header-font-size);
-      line-height: var(--header-line-height);
+      font-size: $headerFontsizeMd;
+      line-height: $headerlineheightMd;
       color: $contrastColor;
       letter-spacing: 0.15rem;
     }
 
     .headSmallCaption {
-      font-size: var(--header-font-size-small);
-      line-height: var(--header-line-height-small);
+      font-size: $headerFontsizeSm;
+      line-height: $headerLineHeightSm;
       color: $contrastColor;
       letter-spacing: 0.08rem;
       font-weight: 500;
@@ -341,8 +365,10 @@ header {
     grid-column: 1;
     display: flex;
     align-items: center;
-    padding-left: $padding;
+    @include padding($top: 0, $right: 0, $bottom: 0);
+    transition: margin-right 0.4s;
     .mainLogoLink {
+      margin-right: 10px;
       width: fit-content;
       height: min-content;
       &:hover {
@@ -367,7 +393,7 @@ header {
       width: fit-content;
       height: fit-content;
       overflow: hidden;
-      transition: all 0.5s ease;
+      transition: all 0.4s ease;
       &.deactivateTransition {
         transition: margin-right 0s ease;
       }
@@ -391,7 +417,7 @@ header {
         .line {
           background-color: $contrastColor;
           height: 2px;
-          transition: all 0.5s ease, opacity 0.3s, height 0.5s;
+          transition: all 0.4s ease, opacity 0.3s, height 0.4s;
         }
         .line1 {
           width: 100%;
