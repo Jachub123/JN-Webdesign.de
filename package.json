@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "parcel index.html --open",
-    "push": "git push & cd .\\dist\\ && run build & git commit -a & git push",
+    "push": "git push & cd .\\dist\\ && npm run build & git commit -a & git push",
     "git": "git status",
     "build": "parcel build index.html",
     "test": "react-scripts test",
