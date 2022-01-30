@@ -327,7 +327,7 @@ header {
   grid-template-columns: auto 1fr;
   align-items: var(--navbar-vertical-position);
   @include padding($left: 0);
-  transition: all 0.4s ease;
+  transition: margin 0.4s ease;
   &.open {
     .CenterHeaderNav {
       .headerNavContainer {
@@ -393,7 +393,9 @@ header {
       width: fit-content;
       height: fit-content;
       overflow: hidden;
-      transition: all 0.4s ease;
+      transition-property: right;
+      transition-property: margin;
+      transition: 0.4s ease;
       &.deactivateTransition {
         transition: margin-right 0s ease;
       }
@@ -440,7 +442,9 @@ header {
         right: -$navbarWidth;
         width: var(--navbar-width);
         height: 100%;
-        transition: all 0.4s ease;
+        transition-property: right;
+        transition-property: width;
+        transition: 0.4s ease;
         ul {
           display: flex;
           justify-content: center;

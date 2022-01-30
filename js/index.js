@@ -206,7 +206,7 @@ class Header extends React.Component {
         if (key == "xs" || key == "sm" || key == "md") {
           const mediaQuery = window.matchMedia("(min-width: " + value + ")");
           if (mediaQuery.matches) {
-            this.resize();
+              this.resize();          
           }
         }
       }
@@ -247,12 +247,12 @@ class Header extends React.Component {
 
   onImageLoad = () => {
     this.resize();
+    window.addEventListener("resize", this.resizeOnChange);
+    window.addEventListener("resize", this.positionIconOnChange);
   };
 
   componentDidMount() {
     this.onImageLoad();
-    window.addEventListener("resize", this.resizeOnChange);
-    window.addEventListener("resize", this.positionIconOnChange);
   }
 
   render() {
