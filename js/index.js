@@ -13,11 +13,11 @@ class Pageheader extends React.Component {
         }}
       >
         <h2 className="drop-shadow headMediumCaption">Sowie Du, sollte auch</h2>
-        <h2 className="drop-shadow headMediumCaption">
+        <h2 className="drop-shadow headMediumCaption"> 
           Deine Website ein Unikat sein
         </h2>
         <h2 className="drop-shadow headMediumCaption">
-          Und kein Baukaustenmodell
+          Und kein Baukaustenmodell 
         </h2>
         <h3 className="drop-shadow headSmallCaption">
           <span className="icon-checkmark2"></span> Responsiv

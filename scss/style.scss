@@ -22,7 +22,7 @@ $burgerMenuHeight: $burgerMenuWidth * 0.75;
 $positionNavbarCloseIconCenter: $navbarWidth * 0.5 - $burgerMenuWidth * 0.5;
 $headerFontsizeSm: 0.8rem;
 $headerLineHeightSm: 1.8rem;
-$headerFontsizeMd: 1.1rem;
+$headerFontsizeMd: 1.035rem;
 $headerlineheightMd: 2.4rem;
 $linkFontSize: 0.9rem;
 $ratio: 1.33;
@@ -67,7 +67,7 @@ $screensize-list: (
 
 @include layout-for-screensize(md) {
   :root {
-    --font-size: 25px;
+    --font-size: 30px;
     --padding: #{$paddingMd};
     --navbar-background-color: none;
     --navbar-linkContainer-flex-direction: row;
@@ -281,7 +281,7 @@ button {
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.3));
 }
 .pageheader {
-  background-image: url(../img/test2_blur.jpg);
+  background-image: url(../img/test3_blur.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left;
@@ -309,7 +309,7 @@ button {
       font-size: $headerFontsizeSm;
       line-height: $headerLineHeightSm;
       color: $contrastColor;
-      letter-spacing: 0.08rem;
+      letter-spacing: .035rem;;
       font-weight: 500;
     }
   }
