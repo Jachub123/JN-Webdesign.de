@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./Header";
-import Head from "next/head";
 
 const Home = () => {
   const bigHeadlineText = [
@@ -32,10 +31,6 @@ const Home = () => {
         bigHeadline={bigHeadlines}
         smallHeadLine={smallHeadlines}
       ></Header>
-      <Head>
-        <title>Webseite erstellen lassen</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <div className="sectionResponsive">
         <section className="responsiveWrapper contentBox">
           <h1 className="">Webseite erstellen lassen</h1>
@@ -202,7 +197,7 @@ const Home = () => {
                 <path class="cls-3" d="M32.86,128v9" />
               </svg>
               <h2>Individuelles Design</h2>
-              Eine Website hat einen Charakter. Deshalb sollte sie ein Spiegel
+              Eine Webseite hat einen Charakter. Deshalb sollte sie ein Spiegel
               sein, von dem was Sie verkörpern, Was Sie oder Ihr Unternehmen
               ausmacht. Für alle, denen Individualität ein Anliegen ist.
             </div>
@@ -366,7 +361,7 @@ const Home = () => {
                 />
               </svg>
               <h2>Mobile friendly</h2>
-              Ein Gesicht mit dem Sie sich indentifizieren können.
+              Ihre Webseite .
             </div>
           </div>
         </section>
