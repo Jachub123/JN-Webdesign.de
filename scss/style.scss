@@ -178,13 +178,84 @@ $screensize-list: (
     content: "add at least one parameter to logosize mixin";
   }
 }
-
+.cls-1,
+.cls-11 {
+  fill: #f4bcb0;
+}
+.cls-2 {
+  fill: $mainColor1;
+}
+.cls-11,
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-8,
+.cls-9 {
+  stroke: #000;
+}
+.cls-10,
+.cls-11,
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-5,
+.cls-8,
+.cls-9 {
+  stroke-miterlimit: 10;
+}
+.cls-10,
+.cls-3 {
+  fill: none;
+}
+.cls-4,
+.cls-7 {
+  fill: #fff;
+}
+.cls-5 {
+  stroke: #fff;
+}
+.cls-6 {
+  fill: #753c30;
+}
+.cls-8 {
+  fill: $linkColorHover;
+}
+.cls-9 {
+  fill: $linkColorHover;
+}
+.cls-10 {
+  stroke: $linkColorHover;
+}
+.customls-1 {
+  fill: #fff;
+}
+.customls-1,
+.customls-2 {
+  stroke: #000;
+  stroke-miterlimit: 10;
+}
+.customls-2 {
+  fill: #ffcdc0;
+}
+.customls-3 {
+  fill: none;
+  stroke: #000;
+  stroke-miterlimit: 10;
+}
+.customls-4 {
+  fill: #b9dded;
+}
 html {
   font-size: var(--font-size);
 }
 
 body {
   font-family: "Louis_George_Cafe";
+}
+
+span,
+pre {
+  font-family: Louis_George_Cafe_Light;
 }
 
 button {
@@ -378,7 +449,6 @@ header {
       }
     }
     span {
-      font-family: Louis_George_Cafe_Light;
       letter-spacing: 3px;
       font-style: italic;
     }
@@ -477,8 +547,21 @@ header {
 }
 
 .sectionResponsive {
-  background-color: $mainColor2;
-  h1 {
-    color: $contrastColor2;
+  .svgSize {
+    width: 75%;
   }
+  h1,
+  h2 {
+    margin-bottom: 1rem;
+    color: #000;
+  }
+  .column-text {
+    font-size: 0.65rem;
+
+    & h2 {
+      font-size: 1.25rem;
+    }
+  }
+  text-align: center;
+  color: lighten($mainColor1, 7%);
 }

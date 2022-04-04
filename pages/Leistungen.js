@@ -3,14 +3,14 @@ import Header from "./Header";
 
 const Leistungen = () => {
   const bigHeadlineText = [
-    "Hier kannst du Dich ",
+    "Hier können Sie sich ",
     "Nicht nur finden",
     "Sondern auch verwirklichen!",
   ];
   const smallHeadlineText = [
-    "Wir arbeiten zusammen an Deinem Auftritt",
-    "Deine Farben, Deine Bilder",
-    "Deine Seite!",
+    "Wir arbeiten zusammen an Ihrem Auftritt",
+    "Ihre Farben, Ihre Bilder",
+    "Ihre Seite!",
   ];
 
   const bigHeadlines = bigHeadlineText.map((text, index) => (
