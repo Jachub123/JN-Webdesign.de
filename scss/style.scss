@@ -13,6 +13,8 @@ $mainColor2: #3a6289;
 $contrastColor: #ffffff;
 $contrastColor2: #bacccb;
 $linkColor: $contrastColor;
+$animationBackground1: lighten($mainColor2, 35%);
+$LogoTextColor: $linkColorHover;
 $paddingSm: 10px;
 $paddingMd: 40px;
 $navbarWidth: 250px;
@@ -26,6 +28,8 @@ $headerFontsizeMd: 1.035rem;
 $headerlineheightMd: 2.4rem;
 $linkFontSize: 0.9rem;
 $ratio: 1.33;
+$smallDelay: 0.1s;
+$moreDelay: 0.2s;
 
 $screensize-list: (
   xs: 0,
@@ -178,54 +182,345 @@ $screensize-list: (
     content: "add at least one parameter to logosize mixin";
   }
 }
-.cls-1,
-.cls-11 {
-  fill: #f4bcb0;
+
+@keyframes fixTie {
+  0% {
+    offset-path: path("M1,2");
+  }
+  75% {
+    offset-path: path("M0,0");
+  }
+  90% {
+    offset-path: path("M0,1");
+  }
+  100% {
+    offset-path: path("M1,2");
+  }
 }
-.cls-2 {
-  fill: $mainColor1;
+
+.fixTie {
+  animation: fixTie 0.9s infinite;
 }
-.cls-11,
-.cls-2,
-.cls-3,
-.cls-4,
-.cls-8,
-.cls-9 {
-  stroke: #000;
+
+@keyframes shakeHands {
+  0% {
+    offset-path: path("M0,0");
+  }
+  25% {
+    offset-path: path("M0,1");
+  }
+  50% {
+    offset-path: path("M0,2");
+  }
+  75% {
+    offset-path: path("M0,1");
+  }
+  100% {
+    offset-path: path("M0,0");
+  }
 }
-.cls-10,
-.cls-11,
-.cls-2,
-.cls-3,
-.cls-4,
-.cls-5,
-.cls-8,
-.cls-9 {
-  stroke-miterlimit: 10;
+
+@keyframes vibrate {
+  0% {
+    offset-path: path("M0,0");
+  }
+  5% {
+    offset-path: path("M1,-1");
+  }
+  7% {
+    offset-path: path("M-1,1");
+  }
+  10% {
+    offset-path: path("M-1,-1");
+  }
+  12% {
+    offset-path: path("M1,1");
+  }
+  15% {
+    offset-path: path("M-1,1");
+  }
+  15% {
+    offset-path: path("M-1,-1");
+  }
+  20% {
+    offset-path: path("M1,1");
+  }
+  100% {
+    offset-path: path("M1,1");
+  }
 }
-.cls-10,
-.cls-3 {
-  fill: none;
+
+@keyframes flyInTop {
+  0% {
+    offset-path: path("M0,-400");
+  }
+
+  100% {
+    offset-path: path("M0,0");
+  }
 }
-.cls-4,
-.cls-7 {
-  fill: #fff;
+@keyframes flyInSide {
+  0% {
+    offset-path: path("M-400,0");
+  }
+
+  100% {
+    offset-path: path("M0,0");
+  }
 }
-.cls-5 {
-  stroke: #fff;
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-60deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
-.cls-6 {
-  fill: #753c30;
+
+/* 
+lets logo grow while the fly in animations take place
+@keyframes sizing {
+  0% {
+    width: 0%;
+    height: 0%;
+  }
+
+  100% {
+    width: $logoWidth * $ratio;
+    height: 100%;
+  }
+} */
+
+@keyframes FlyInFast {
+  0% {
+    margin-top: -80px;
+  }
+
+  45% {
+    margin-top: -20px;
+  }
 }
-.cls-8 {
-  fill: $linkColorHover;
+
+@keyframes delayAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
-.cls-9 {
-  fill: $linkColorHover;
+
+@keyframes rollToRight {
+  0% {
+    margin-left: -400px;
+    transform: rotate(0deg);
+  }
+
+  100% {
+    margin-left: 0;
+    transform: rotate(360deg);
+  }
 }
-.cls-10 {
-  stroke: $linkColorHover;
+
+.rollToRight {
+  animation: rollToRight 2s;
 }
+
+@keyframes rollToLeft {
+  0% {
+    margin-right: -400px;
+    transform: rotate(360deg);
+  }
+
+  100% {
+    margin-right: 0;
+    transform: rotate(0deg);
+  }
+}
+
+.rollToLeft {
+  animation: rollToLeft 2s;
+}
+
+@keyframes bounceTop {
+  0% {
+    margin-top: -300px;
+  }
+  30% {
+    margin-top: 25px;
+  }
+  32% {
+    margin-top: 25px;
+    width: 250px;
+    height: 200px;
+  }
+  34% {
+    margin-top: -20px;
+    width: 250px;
+    height: 250px;
+  }
+  36% {
+    height: 250px;
+    margin-top: -40px;
+  }
+  65% {
+    margin-top: -65px;
+  }
+  70% {
+    margin-top: -66px;
+  }
+
+  100% {
+    margin-top: 0;
+  }
+}
+
+.bounceTop {
+  animation: bounceTop 2s;
+}
+
+@keyframes rightCurtain {
+  0% {
+    margin-left: 100vw;
+  }
+
+  100% {
+    margin-right: 0;
+  }
+}
+
+.rightCurtain {
+  animation: rightCurtain 4s;
+}
+
+@keyframes leftCurtain {
+  0% {
+    margin-left: -100vw;
+  }
+
+  100% {
+    margin-left: 0;
+  }
+}
+
+.leftCurtain {
+  animation: leftCurtain 4s;
+}
+
+.animationContainer {
+  position: relative;
+}
+
+@keyframes fadeToWhite {
+  0% {
+    color: black;
+  }
+  80% {
+    color: black;
+  }
+  100% {
+    color: white;
+  }
+}
+
+.fadeToWhite {
+  animation: fadeToWhite 4s;
+}
+
+.hiddenSvg {
+  opacity: 0;
+}
+
+#Layer_2 {
+  position: absolute;
+}
+
+.mainLogoLink {
+  svg {
+    //animation: sizing 2s;
+    overflow: visible;
+  }
+}
+
+.a8f6c171-b2aa-42b2-a7ec-256ed9f005a2 {
+  fill: #2b456b;
+  animation: flyInTop 2s;
+}
+.f8d7a943-5add-4d34-999c-90da43c4468a {
+  fill: #3a6289;
+  animation: flyInSide 2s;
+}
+.f532e9b0-bc36-4e9e-b61e-1a39f5d410ff {
+  fill: #3cc;
+  animation: rotate 2s;
+}
+
+#Layer_1 {
+  .cls-1,
+  .cls-11 {
+    fill: #f4bcb0;
+  }
+  .hand1,
+  .cls-8,
+  .cls-9,
+  .cls-10 {
+    animation-duration: 0.9s;
+    animation-name: fixTie;
+    animation-iteration-count: infinite;
+  }
+  .cls-2 {
+    fill: $mainColor1;
+  }
+  .cls-11,
+  .cls-12,
+  .cls-2,
+  .cls-3,
+  .cls-4,
+  .cls-8,
+  .cls-9 {
+    stroke: #000;
+  }
+  .cls-12 {
+    fill: $linkColorHover;
+  }
+  .cls-10,
+  .cls-11,
+  .cls-2,
+  .cls-3,
+  .cls-4,
+  .cls-5,
+  .cls-8,
+  .cls-9 {
+    stroke-miterlimit: 10;
+  }
+  .cls-10,
+  .cls-3 {
+    fill: none;
+  }
+  .cls-4,
+  .cls-7 {
+    fill: #fff;
+  }
+  .cls-5 {
+    stroke: #fff;
+  }
+  .cls-6 {
+    fill: #753c30;
+  }
+  .cls-8 {
+    fill: $linkColorHover;
+  }
+  .cls-9 {
+    fill: $linkColorHover;
+  }
+  .cls-10 {
+    stroke: $linkColorHover;
+  }
+}
+
 .customls-1 {
   fill: #fff;
 }
@@ -242,7 +537,36 @@ $screensize-list: (
   stroke: #000;
   stroke-miterlimit: 10;
 }
+.circle {
+  fill: $animationBackground1;
+  stroke: #000;
+  & ~ .customls-1,
+  & ~ .customls-2,
+  & ~ .customls-3 {
+    animation-duration: 0.6s;
+    animation-name: shakeHands;
+    animation-iteration-count: infinite;
+  }
+}
+.customls-7 {
+  fill: none;
+  stroke: #000;
+}
 .customls-4 {
+  fill: white;
+  stroke: #000;
+}
+circle {
+  & ~ .customls-4,
+  & ~ .customls-5,
+  & ~ .customls-6,
+  & ~ .customls-7 {
+    animation-duration: 1s;
+    animation-name: vibrate;
+    animation-iteration-count: infinite;
+  }
+}
+.customls-5 {
   fill: #b9dded;
 }
 html {
@@ -258,89 +582,104 @@ pre {
   font-family: Louis_George_Cafe_Light;
 }
 
+.column {
+  svg {
+    max-width: 250px;
+  }
+  .column-text {
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 button {
   border: 0;
   background-color: transparent;
 }
-.header-grid
-  .headerLogoWrapper
-  + .CenterHeaderNav
-  .headerNavContainer
-  nav
-  ul
+.header-grid .headerLogoWrapper + .CenterHeaderNav .headerNavContainer nav ul {
   .linkLiElement {
-  display: flex;
-  justify-content: center;
-  a {
-    position: relative;
+    &:first-child {
+      animation: FlyInFast 2s;
+    }
+    &:nth-child(2) {
+      animation: delayAnimation $smallDelay, FlyInFast 2s $smallDelay;
+    }
+    &:nth-child(3) {
+      animation: delayAnimation $moreDelay, FlyInFast 2s $moreDelay;
+    }
     display: flex;
-    width: fit-content;
-    flex-direction: column;
     justify-content: center;
-    text-decoration: none;
-    font-size: $linkFontSize;
-    color: transparent;
-    p {
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: $linkColorHover;
-      margin: 0;
-      transition: 0.3s ease;
-    }
-    span {
-      position: absolute;
-      top: 0;
-      right: 0;
-      opacity: 0;
-      color: $contrastColor;
-      transition-delay: 0.4s;
-    }
-    &::after {
-      content: attr(linktext);
-      z-index: 2;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      color: $contrastColor;
-      transition: width 0.2s ease;
-      transition-delay: 0.2s;
-    }
-    &::before {
-      content: attr(linktext);
-      z-index: 1;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      color: $mainColor1;
-      transition: width 0.4s ease;
-    }
-    &:hover {
+    a {
+      position: relative;
+      display: flex;
+      width: fit-content;
+      flex-direction: column;
+      justify-content: center;
+      text-decoration: none;
+      font-size: $linkFontSize;
+      color: transparent;
       p {
-        opacity: 0.4;
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: $linkColorHover;
+        margin: 0;
+        transition: 0.3s ease;
       }
       span {
-        opacity: 1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        opacity: 0;
+        color: $contrastColor;
+        transition-delay: 0.4s;
       }
       &::after {
-        width: 100%;
+        content: attr(linktext);
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        color: $contrastColor;
+        transition: width 0.2s ease;
+        transition-delay: 0.2s;
       }
       &::before {
-        width: 100%;
+        content: attr(linktext);
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        color: $mainColor1;
+        transition: width 0.4s ease;
       }
-      .hoverBorder {
-        width: var(--hover-underline-link);
+      &:hover {
+        p {
+          opacity: 0.4;
+        }
+        span {
+          opacity: 1;
+        }
+        &::after {
+          width: 100%;
+        }
+        &::before {
+          width: 100%;
+        }
+        .hoverBorder {
+          width: var(--hover-underline-link);
+        }
       }
     }
   }
 }
-
 .hoverBorder {
   width: 0;
   height: 10px;
@@ -401,7 +740,6 @@ header {
   &.open {
     .CenterHeaderNav {
       .headerNavContainer {
-        overflow: visible;
         nav {
           right: 0;
           background-color: var(--navbar-background-color);
@@ -444,8 +782,9 @@ header {
       &:hover {
         opacity: 1;
       }
-      img {
+      svg {
         @include logoSizes-for-big-screens($width: $logoWidth);
+        height: auto;
       }
     }
     span {
@@ -461,7 +800,6 @@ header {
       display: grid;
       width: fit-content;
       height: fit-content;
-      overflow: hidden;
       transition-property: right;
       transition-property: margin;
       transition: 0.4s ease;
@@ -544,12 +882,10 @@ header {
 
 .responsiveWrapper {
   @include padding();
+  height: 100vh;
 }
 
 .sectionResponsive {
-  .svgSize {
-    width: 75%;
-  }
   h1,
   h2 {
     margin-bottom: 1rem;
@@ -563,5 +899,39 @@ header {
     }
   }
   text-align: center;
-  color: lighten($mainColor1, 7%);
+}
+.dividingParallax {
+  height: 50vw;
+  position: relative;
+  overflow: hidden;
+  .blueTriangle {
+    width: 0;
+    height: 0;
+    border-top: 50vw solid transparent;
+    border-bottom: 50vw solid transparent;
+    border-left: 100vw solid $mainColor2;
+    position: absolute;
+  }
+  .greenTriangle {
+    width: 0;
+    height: 0;
+    border-top: 50vw solid transparent;
+    border-bottom: 50vw solid transparent;
+    border-right: 100vw solid $linkColorHover;
+    position: absolute;
+    top: -50vw;
+  }
+  .huge {
+    color: white;
+    font-size: 8rem;
+  }
+  .mini {
+    color: white;
+    font-size: 1rem;
+    font-family: Louis_George_Cafe_Light;
+  }
+  .curtainSlogan {
+    position: absolute;
+    width: 100%;
+  }
 }
