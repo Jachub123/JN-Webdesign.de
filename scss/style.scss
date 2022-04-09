@@ -3,6 +3,11 @@
 @import "../css/main.css";
 @import "../css/normalize.css";
 @import "../css/fonts.css";
+@import "node_modules/bulma/sass/utilities/_all";
+@import "node_modules/bulma/sass/components/_all";
+@import "node_modules/bulma/sass/grid/_all";
+@import "node_modules/bulma/sass/helpers/_all";
+@import "node_modules/bulma/sass/layout/_all";
 
 //Define Css in Html head with react to be able to manipulate the css directly via react.
 
