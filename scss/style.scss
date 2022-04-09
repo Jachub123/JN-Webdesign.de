@@ -6,13 +6,72 @@
 
 //Define Css in Html head with react to be able to manipulate the css directly via react.
 
+//THEME2 Rot zu wenig Kontrast auf mobile
+/* 
 $background-color: rgb(142, 216, 216);
-$linkColorHover: #33cccc;
-$mainColor1: #2b456b;
-$mainColor2: #3a6289;
-$contrastColor: #ffffff;
-$contrastColor2: #bacccb;
+$linkColorHover: #ff0051;
+$mainColor1: #757449;
+$overlayColor: $mainColor1;
+$mainColor2: #e2df9a;
+$contrastColor: #ebe54d;
+$contrastColorDark: #4b490b;
+$linkColor: $contrastColor; */
+
+//THEME3
+
+/* $background-color: rgb(142, 216, 216);
+$linkColorHover: #fd6e8a;
+$mainColor1: #752208;
+$overlayColor: #000;
+$mainColor2: #7c5d4a;
+$contrastColor: #fffa81;
+$contrastColorDark: #3a2c22;
+$linkColor: $contrastColor; */
+
+//THEME4 Favorit
+
+$background-color: rgb(142, 216, 216);
+$linkColorHover: #ece59a;
+$mainColor1: #2c3b63;
+$overlayColor: $mainColor1;
+$mainColor2: #adb8aa;
+$contrastColor: #cf0931;
+$contrastColorDark: $contrastColor;
 $linkColor: $contrastColor;
+
+//THEME5
+
+/* $background-color: rgb(142, 216, 216);
+$linkColorHover: #3bffbe;
+$mainColor1: #063f3c;
+$overlayColor: #303544;
+$mainColor2: #b4be58;
+$contrastColor: #ff00aa;
+$contrastColorDark: $contrastColor;
+$linkColor: $contrastColor;
+ */
+//THEME 1
+
+/* $background-color: rgb(142, 216, 216);
+$linkColorHover: #c54570;
+$mainColor1: #063f3ccb;
+$overlayColor: $mainColor1;
+$mainColor2: #4eaaad;
+$contrastColor: #ffffff;
+$contrastColorDark: #606b6b;
+$linkColor: $contrastColor; */
+
+//THEME 6
+
+/* $background-color: rgb(142, 216, 216);
+$linkColorHover: #dde7a1;
+$mainColor1: #83052b;
+$overlayColor: black;
+$mainColor2: #aa9e30;
+$contrastColor: white;
+$contrastColorDark: #32615d;
+$linkColor: $contrastColor; */
+
 $animationBackground1: lighten($mainColor2, 35%);
 $LogoTextColor: $linkColorHover;
 $paddingSm: 10px;
@@ -252,7 +311,7 @@ $screensize-list: (
 
 @keyframes flyInTop {
   0% {
-    offset-path: path("M0,-400");
+    offset-path: path("M0,-1600");
   }
 
   100% {
@@ -261,7 +320,7 @@ $screensize-list: (
 }
 @keyframes flyInSide {
   0% {
-    offset-path: path("M-400,0");
+    offset-path: path("M-1600,0");
   }
 
   100% {
@@ -271,27 +330,30 @@ $screensize-list: (
 
 @keyframes rotate {
   0% {
-    transform: rotate(-60deg);
+    transform: rotate(-360deg);
   }
-
+  50% {
+    transform: rotate(0);
+  }
   100% {
-    transform: rotate(0deg);
+    transform: rotate(360deg);
   }
 }
 
-/* 
-lets logo grow while the fly in animations take place
 @keyframes sizing {
   0% {
-    width: 0%;
-    height: 0%;
+    width: 10%;
+    height: 10%;
   }
 
   100% {
-    width: $logoWidth * $ratio;
+    @include layout-for-screensize(md) {
+      width: $logoWidth * $ratio;
+    }
+    width: $logoWidth;
     height: 100%;
   }
-} */
+}
 
 @keyframes FlyInFast {
   0% {
@@ -347,39 +409,91 @@ lets logo grow while the fly in animations take place
 
 @keyframes bounceTop {
   0% {
-    margin-top: -300px;
+    margin-top: -350px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
+  28% {
+    margin-top: -25px;
   }
   30% {
     margin-top: 25px;
-  }
-  32% {
-    margin-top: 25px;
+    height: 250px;
     width: 250px;
+  }
+  35% {
+    margin-top: 25px;
     height: 200px;
   }
-  34% {
+  37% {
     margin-top: -20px;
     width: 250px;
     height: 250px;
   }
-  36% {
-    height: 250px;
-    margin-top: -40px;
+  41% {
+    margin-top: -90px;
   }
-  65% {
-    margin-top: -65px;
+  47% {
+    margin-top: -115px;
   }
-  70% {
-    margin-top: -66px;
+  54% {
+    margin-top: -130px;
   }
-
+  72% {
+    margin-top: -134px;
+  }
+  85% {
+    margin-top: -126px;
+  }
+  99% {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  }
   100% {
     margin-top: 0;
+    position: static;
   }
 }
 
 .bounceTop {
-  animation: bounceTop 2s;
+  animation: bounceTop 2s linear;
+}
+
+@keyframes positionAbsolute {
+  0% {
+    position: static;
+  }
+  99% {
+    position: static;
+  }
+
+  100% {
+    position: absolute;
+  }
+}
+
+.positionAbsolute {
+  animation: positionAbsolute 2s linear;
+}
+
+@keyframes fadeSvgBackground {
+  0% {
+    fill: white;
+  }
+
+  100% {
+    fill: $animationBackground1;
+  }
+}
+
+.fadeSvgBackground {
+  animation: fadeSvgBackground 4s;
 }
 
 @keyframes rightCurtain {
@@ -418,8 +532,11 @@ lets logo grow while the fly in animations take place
   0% {
     color: black;
   }
-  80% {
+  50% {
     color: black;
+  }
+  80% {
+    color: $contrastColorDark;
   }
   100% {
     color: white;
@@ -432,30 +549,43 @@ lets logo grow while the fly in animations take place
 
 .hiddenSvg {
   opacity: 0;
-}
-
-#Layer_2 {
   position: absolute;
 }
 
 .mainLogoLink {
-  svg {
-    //animation: sizing 2s;
+  svg#e32345ba-7969-4b40-9cd7-e7b879a508ab {
     overflow: visible;
+    animation: sizing 1.5s;
   }
 }
 
-.a8f6c171-b2aa-42b2-a7ec-256ed9f005a2 {
-  fill: #2b456b;
-  animation: flyInTop 2s;
+/* .a8f6c171-b2aa-42b2-a7ec-256ed9f005a2 {
+  fill: $mainColor1;
+  animation: flyInTop 1.5s;
 }
 .f8d7a943-5add-4d34-999c-90da43c4468a {
-  fill: #3a6289;
-  animation: flyInSide 2s;
+  fill: $linkColorHover;
+  animation: flyInSide 1.5s;
 }
 .f532e9b0-bc36-4e9e-b61e-1a39f5d410ff {
-  fill: #3cc;
-  animation: rotate 2s;
+  fill: $contrastColor;
+  animation: rotate 1.5s;
+}
+ */
+
+.a8f6c171-b2aa-42b2-a7ec-256ed9f005a2 {
+  fill: $mainColor1;
+  animation: flyInTop 1.5s;
+}
+.f8d7a943-5add-4d34-999c-90da43c4468a {
+  fill: $mainColor2;
+  animation: flyInSide 1.5s;
+}
+.f532e9b0-bc36-4e9e-b61e-1a39f5d410ff {
+  fill: $linkColorHover;
+  > * {
+    animation: rotate 1.5s linear;
+  }
 }
 
 #Layer_1 {
@@ -582,6 +712,10 @@ pre {
   font-family: Louis_George_Cafe_Light;
 }
 
+.column-text {
+  position: relative;
+}
+
 .column {
   svg {
     max-width: 250px;
@@ -701,8 +835,15 @@ button {
     position: absolute;
     height: 100%;
     width: 100%;
+    background-color: $overlayColor;
+    opacity: 0.8;
+  }
+  .overlay2 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
     background-color: black;
-    opacity: 0.7;
+    opacity: 0.5;
   }
   .pageHeaderWrapper {
     @include padding($right: 0);
@@ -710,14 +851,14 @@ button {
       font-variant: small-caps;
       font-size: $headerFontsizeMd;
       line-height: $headerlineheightMd;
-      color: $contrastColor;
+      color: $mainColor2;
       letter-spacing: 0.15rem;
     }
 
     .headSmallCaption {
       font-size: $headerFontsizeSm;
       line-height: $headerLineHeightSm;
-      color: $contrastColor;
+      color: $mainColor2;
       letter-spacing: 0.035rem;
       font-weight: 500;
     }
@@ -882,50 +1023,80 @@ header {
 
 .responsiveWrapper {
   @include padding();
-  height: 100vh;
+  min-height: 100vh;
+}
+
+h2 {
+  color: $contrastColorDark;
 }
 
 .sectionResponsive {
-  h1,
-  h2 {
-    margin-bottom: 1rem;
+  overflow: hidden;
+  h1 {
     color: #000;
+  }
+  h2 {
+    font-family: Louis_George_Cafe_Light;
+    margin-bottom: 3rem;
   }
   .column-text {
     font-size: 0.65rem;
 
     & h2 {
       font-size: 1.25rem;
+      margin-bottom: 0;
+      height: 112.5px;
     }
   }
   text-align: center;
 }
 .dividingParallax {
-  height: 50vw;
+  h1,
+  h2 {
+    margin-bottom: 0;
+  }
+  h1 {
+    &:first-child {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    &:last-child {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+  height: 100vh;
   position: relative;
   overflow: hidden;
   .blueTriangle {
     width: 0;
     height: 0;
-    border-top: 50vw solid transparent;
-    border-bottom: 50vw solid transparent;
+    border-top: 100vh solid transparent;
+    border-bottom: 100vh solid transparent;
     border-left: 100vw solid $mainColor2;
     position: absolute;
   }
   .greenTriangle {
     width: 0;
     height: 0;
-    border-top: 50vw solid transparent;
-    border-bottom: 50vw solid transparent;
+    border-top: 100vh solid transparent;
+    border-bottom: 100vh solid transparent;
     border-right: 100vw solid $linkColorHover;
     position: absolute;
-    top: -50vw;
+    top: -100vh;
   }
   .huge {
+    height: 44vh;
     color: white;
-    font-size: 8rem;
+    font-size: clamp(4rem, 25vw, 9rem);
   }
   .mini {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12vh;
     color: white;
     font-size: 1rem;
     font-family: Louis_George_Cafe_Light;

@@ -35,9 +35,10 @@ const Home = () => {
       <Animations></Animations>
       <div className="sectionResponsive">
         <section className="responsiveWrapper contentBox">
-          <h1 className="">Webseite erstellen lassen</h1>
+          <h1>Webseite erstellen lassen</h1>
+          <h2>Konzept</h2>
           <div className="columns ">
-            <div className="column-text column">
+            <div className="column-text hacker column">
               <svg
                 id="Layer_1"
                 className="svgSize"
@@ -46,7 +47,13 @@ const Home = () => {
                 viewBox="0 0 151 151"
               >
                 <defs></defs>
-                <circle className="circle" cx="75.5" cy="75.5" r="75" />
+                <circle
+                  id="circle1"
+                  className="circle"
+                  cx="75.5"
+                  cy="75.5"
+                  r="75"
+                />
                 <path
                   className="cls-1"
                   d="M17.24,47.17c0,8.38,5.09,2.11,5.12,16.25,0,1.79,2.49,10.79,9.48,11.57,7.36.83,10.54-10.31,10.88-11,.49-1,4.14-6.87,4.55-11,1-10-1.43-21-11.91-21.7C28.41,30.82,17.22,38.62,17.24,47.17Z"
@@ -250,6 +257,7 @@ const Home = () => {
               >
                 <defs></defs>
                 <circle
+                  id="circle2"
                   className="customls-1 circle"
                   cx="75.5"
                   cy="75.5"
@@ -297,7 +305,6 @@ const Home = () => {
                 />
               </svg>
               <svg
-                data-name="Layer 2"
                 className="svgSize hiddenSvg"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 151 151"
@@ -368,6 +375,7 @@ const Home = () => {
               >
                 <defs></defs>
                 <circle
+                  id="circle3"
                   className="customls-6 circle"
                   cx="75.5"
                   cy="75.5"
@@ -479,7 +487,7 @@ const Home = () => {
           <div className="blueTriangle"></div>
           <div className="greenTriangle"></div>
           <div className="curtainSlogan">
-            <h1 className="huge design">Design </h1>
+            <h1 className="huge design">Form </h1>
             <h2 className="mini">Folgt</h2>
             <h1 className="huge funktion">Funktion</h1>
           </div>

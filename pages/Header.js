@@ -315,6 +315,7 @@ class Header extends React.Component {
           style={{ backgroundImage: `url( ${this.props.logo} )` }}
         >
           <div className="overlay"></div>
+          <div className="overlay2"></div>
 
           <div
             className="pageHeaderWrapper contentBox"
@@ -323,8 +324,10 @@ class Header extends React.Component {
               paddingLeft: this.state.logoWidth,
             }}
           >
-            {this.props.bigHeadline}
-            {this.props.smallHeadLine}
+            <div>
+              {this.props.bigHeadline}
+              {this.props.smallHeadLine}
+            </div>
           </div>
         </section>
       </div>
