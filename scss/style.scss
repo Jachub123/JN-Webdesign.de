@@ -12,8 +12,8 @@
 //Define Css in Html head with react to be able to manipulate the css directly via react.
 
 //THEME2 Rot zu wenig Kontrast auf mobile
-/* 
-$background-color: rgb(142, 216, 216);
+
+/* $background-color: rgb(142, 216, 216);
 $linkColorHover: #ff0051;
 $mainColor1: #757449;
 $overlayColor: $mainColor1;
@@ -53,8 +53,8 @@ $overlayColor: #303544;
 $mainColor2: #b4be58;
 $contrastColor: #ff00aa;
 $contrastColorDark: $contrastColor;
-$linkColor: $contrastColor;
- */
+$linkColor: $contrastColor; */
+
 //THEME 1
 
 /* $background-color: rgb(142, 216, 216);
@@ -1096,6 +1096,7 @@ h2 {
     height: 44vh;
     color: white;
     font-size: clamp(4rem, 25vw, 9rem);
+    font-weight: normal;
   }
   .mini {
     display: flex;
@@ -1105,6 +1106,7 @@ h2 {
     color: white;
     font-size: 1rem;
     font-family: Louis_George_Cafe_Light;
+    font-weight: normal;
   }
   .curtainSlogan {
     position: absolute;
