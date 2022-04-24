@@ -38,7 +38,7 @@ const Home = () => {
           <h1>Webseite erstellen lassen</h1>
           <h2>Konzept</h2>
           <div className="columns ">
-            <div className="column-text hacker column">
+            <div className="column-text column p-2-tablet">
               <svg
                 id="Layer_1"
                 className="svgSize"
@@ -238,15 +238,15 @@ const Home = () => {
                 <path className="cls-3" d="M32.86,128v9" />
               </svg>
 
-              <h2>Individuelles Design</h2>
-              <div className="column-text">
+              <h2 className="is-size-5-tablet">Individuelles Design</h2>
+              <div className="column-text is-size-6 is-size-7-tablet is-size-6-desktop">
                 Eine Webseite hat einen Charakter. Deshalb sollte sie ein
                 Spiegel dessen sein, was Sie verkörpern, was Sie oder Ihr
                 Unternehmen ausmacht. Für alle, denen Individualität ein
                 Anliegen ist.
               </div>
             </div>
-            <div className="column-text column is-4">
+            <div className="column-text column is-4 p-2">
               <svg
                 id="Layer_2"
                 data-name="Layer 2"
@@ -358,14 +358,14 @@ const Home = () => {
                   d="M75.52,120.1l-.81-4.58a14.34,14.34,0,0,0-1.84-5.62c-1.12-1.65-3.2-2.81-5.11-2.24-2.13.64-3.15,3.06-3.58,5.24"
                 />
               </svg>
-              <h2>Mit Liebe zum Detail</h2>
-              <div className="column-text">
+              <h2 className="is-size-5-tablet">Mit Liebe zum Detail</h2>
+              <div className="column-text is-size-6 is-size-7-tablet is-size-6-desktop">
                 Gemeinsam finden wir Ihre Besonderheiten, denn Design findet
                 sich im Detail wieder. Weshalb Ihre Website, maßgeschneidert für
                 Sie, angefertigt wird.
               </div>
             </div>
-            <div className="column-text column is-4">
+            <div className="column-text column is-4 p-2">
               <svg
                 id="Layer_3"
                 className="svgSize"
@@ -475,8 +475,8 @@ const Home = () => {
                   transform="translate(-3.21 2.32) rotate(-1.76)"
                 />
               </svg>
-              <h2>Mobile friendly</h2>
-              <div className="column-text">
+              <h2 className="is-size-5-tablet">Mobile friendly</h2>
+              <div className="column-text is-size-6 is-size-7-tablet is-size-6-desktop">
                 Das Layout Ihrer Webseite wird für Mobilgeräte, Tablets oder
                 PCs, gleichermaßen optimiert.
               </div>

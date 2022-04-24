@@ -1,5 +1,11 @@
 @use "sass:map";
 @use "sass:math";
+@import "node_modules/bulma/sass/utilities/initial-variables";
+@import "node_modules/bulma/sass/utilities/functions";
+//BULMA VARIABLE OVERRIDES
+$size-5: clamp(0.845rem, 3vw, 1.25rem);
+$size-6: 1rem;
+$size-7: clamp(0.6rem, 2.5vw, 0.9rem);
 @import "../css/main.css";
 @import "../css/normalize.css";
 @import "../css/fonts.css";
@@ -98,7 +104,7 @@ $moreDelay: 0.2s;
 $screensize-list: (
   xs: 0,
   sm: 576px,
-  md: 768px,
+  md: 769px,
   lg: 992px,
   xl: 1200px,
   xxl: 1400px,
@@ -1042,15 +1048,14 @@ h2 {
   }
   h2 {
     font-family: Louis_George_Cafe_Light;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
   .column-text {
-    font-size: 0.65rem;
-
     & h2 {
-      font-size: 1.25rem;
-      margin-bottom: 0;
-      height: 112.5px;
+      margin-bottom: 1rem;
+    }
+    svg {
+      margin-bottom: 0.5rem;
     }
   }
   text-align: center;
