@@ -322,11 +322,17 @@ $screensize-list: (
 
 @keyframes flyInTop {
   0% {
-    offset-path: path("M0,-1600");
+    offset-path: path(
+      "M 0,200 Q 200,200 260,80 Q 290,20 400,0 Q 300,100 400,200"
+    );
+    -moz-offset-path: path("M 0,-200");
+    -webkit-offset-path: path("M 0,-200");
   }
 
   100% {
-    offset-path: path("M0,0");
+    offset-path: path("M 0,0");
+    -moz-offset-path: path("M 0,0");
+    -webkit-offset-path: path("M 0,0");
   }
 }
 @keyframes flyInSide {
@@ -541,7 +547,10 @@ $screensize-list: (
 
 @keyframes fadeToWhite {
   0% {
-    color: black;
+    color: rgb(255, 255, 255);
+  }
+  25% {
+    color: rgb(255, 255, 255);
   }
   50% {
     color: black;
@@ -1042,6 +1051,8 @@ h2 {
 }
 
 .sectionResponsive {
+  margin-top: 100vh;
+  background-color: white;
   overflow: hidden;
   h1 {
     color: #000;
@@ -1061,6 +1072,12 @@ h2 {
   text-align: center;
 }
 .dividingParallax {
+  width: 100%;
+  z-index: -1;
+  top: 0;
+  .parallaxRelativContainer {
+    position: relative;
+  }
   h1,
   h2 {
     margin-bottom: 0;
@@ -1078,7 +1095,7 @@ h2 {
     }
   }
   height: 100vh;
-  position: relative;
+  position: fixed;
   overflow: hidden;
   .blueTriangle {
     width: 0;
@@ -1117,4 +1134,11 @@ h2 {
     position: absolute;
     width: 100%;
   }
+}
+.curtainOpener {
+  position: absolute;
+  top: 150vh;
+}
+.hidden {
+  display: none;
 }

@@ -483,13 +483,16 @@ const Home = () => {
             </div>
           </div>
         </section>
-        <section className="dividingParallax">
-          <div className="blueTriangle"></div>
-          <div className="greenTriangle"></div>
-          <div className="curtainSlogan">
-            <h1 className="huge design">Form </h1>
-            <h2 className="mini">Folgt</h2>
-            <h1 className="huge funktion">Funktion</h1>
+        <div className="curtainOpener"></div>
+        <section className="dividingParallax ">
+          <div className="parallaxRelativContainer">
+            <div className="blueTriangle hidden"></div>
+            <div className="greenTriangle hidden"></div>
+            <div className="curtainSlogan">
+              <h1 className="huge design">Form </h1>
+              <h2 className="mini">Folgt</h2>
+              <h1 className="huge funktion">Funktion</h1>
+            </div>
           </div>
         </section>
       </div>
