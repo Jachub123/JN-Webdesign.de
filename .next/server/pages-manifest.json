@@ -1,6 +1,13 @@
 {
+  "/Header": "pages/Header.html",
+  "/Leistungen": "pages/Leistungen.html",
+  "/Logo": "pages/Logo.html",
   "/_app": "pages/_app.js",
+  "/animations": "pages/animations.html",
+  "/disclaimer": "pages/disclaimer.html",
+  "/index copy": "pages/index copy.html",
+  "/": "pages/index.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js"
+  "/404": "pages/404.html"
 }

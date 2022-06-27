@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+
+    <!--   <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="scss/style.scss" />
+
+    <meta name="theme-color" content="#fafafa" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="js/vendor/modernizr-3.11.2.min.js"></script>
+    <script type="module" src="js/plugins.js"></script>
+    <script type="module" src="js/index.js"></script>
+
+    <script>
+      const settings = {
+        async: true,
+        crossDomain: true,
+        url: "https://ip-geo-location.p.rapidapi.com/ip/check?format=json",
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Host": "ip-geo-location.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "e0c3d2e663msh42c23033d5d849dp1c3ce4jsn9a916d1772b1",
+        },
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response["status"]);
+        const content = JSON.stringify(response);
+        $.ajax({
+          method: "POST",
+          url: "log.php",
+          data: {
+            ip: response["ip"],
+            city: response["city"]["name"],
+            area: response["area"]["name"],
+            country: response["country"]["name"],
+            isp: response["asn"]["organisation"],
+          },
+          dataType: "json",
+        });
+      });
+    </script>
+  </body>
+</html>

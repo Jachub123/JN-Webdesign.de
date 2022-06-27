@@ -264,50 +264,6 @@ class Header extends React.Component {
                 </a>
               </Link>
             </div>
-            <div className="CenterHeaderNav">
-              <div
-                className="headerNavContainer"
-                style={this.state.menuIconPosition}
-              >
-                <nav className=" header">
-                  <ul>
-                    <li className="linkLiElement">
-                      <Link href="/Leistungen">
-                        <a linktext="Leistungen">
-                          Leistungen
-                          <p>Leistungen</p>
-                          <div className="hoverBorder"></div>
-                        </a>
-                      </Link>
-                    </li>
-                    <li className="linkLiElement">
-                      <a linktext="Referenzen" href="#">
-                        Referenzen
-                        <p>Referenzen</p>
-                        <div className="hoverBorder"></div>
-                      </a>
-                    </li>
-                    <li className="linkLiElement">
-                      <a linktext="Kontakt" href="#">
-                        Kontakt
-                        <p>Kontakt</p>
-                        <div className="hoverBorder"></div>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-                <div
-                  className="drop-shadow burgerMenu"
-                  onClick={() => this.transformIcon()}
-                  ref={this.menuIcon}
-                >
-                  <div className="line line1"></div>
-                  <div className="line line2"></div>
-                  <div className="line line3"></div>
-                  <div className="line line4"></div>
-                </div>
-              </div>
-            </div>
           </div>
         </header>
         <section
